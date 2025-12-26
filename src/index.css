@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  /* ================================
+     GOAT EMPIRE — DESIGN TOKENS
+     ================================ */
+
+  /* Brand Colors */
+  --color-olive: #4B5224;
+  --color-cream: #FBF4EA;
+  --color-forest: #3B401B;
+  --color-dust: #A9B07A;
+  --color-gold: #C7A75C;
+
+  /* Semantic Colors */
+  --color-primary: var(--color-olive);
+  --color-secondary: var(--color-cream);
+  --color-accent: var(--color-gold);
+  --color-bg: var(--color-cream);
+  --color-text: var(--color-forest);
+
+  /* Typography */
+  --font-display: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
+  --font-ui: "Inter", sans-serif;
+
+  /* Motion */
+  --animate-float: float 6s ease-in-out infinite;
+}
