@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Plus, Filter, Search, Grid, List } from "lucide-react";
+import { Plus, Filter, Search } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { GoatCard } from "../components/goat/GoatCard";
@@ -8,8 +9,9 @@ import type { Goat } from "../types/index";
 import { Card } from "../components/ui/card";
 
 export function GoatsPage() {
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [viewMode, setViewMode] = useState("grid");
 
   // Mock goat data
   const goats: Goat[] = [
@@ -169,7 +171,10 @@ export function GoatsPage() {
             Manage your herd and track performance
           </p>
         </div>
-        <Button className="bg-olive hover:bg-forest text-cream shadow-lg hover:shadow-xl transition-all">
+        <Button
+          onClick={() => navigate("/goats/add")}
+          className="bg-olive hover:bg-forest text-cream shadow-lg hover:shadow-xl transition-all"
+        >
           <Plus className="w-4 h-4 mr-2" />
           Add New Goat
         </Button>
@@ -181,53 +186,29 @@ export function GoatsPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
-        <Card className="border-olive/10 p-6 bg-white/50 backdrop-blur-sm rounded-3xl shadow-sm">
-          <div className="flex flex-col md:flex-row gap-4">
-            {/* Search */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-olive/40" />
-              <Input
-                placeholder="Search by name, tag ID, or breed..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-cream/50 border-olive/10 focus:border-olive"
-              />
-            </div>
-
-            {/* Filter Button */}
-            <Button
-              variant="outline"
-              className="border-olive/20 hover:border-olive/40"
-            >
-              <Filter className="w-4 h-4 mr-2" />
-              Filter
-            </Button>
-
-            {/* View Toggle */}
-            <div className="flex gap-1 bg-cream/50 p-1 rounded-xl border border-olive/5">
-              <Button
-                variant={viewMode === "grid" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("grid")}
-                className={`rounded-lg ${
-                  viewMode === "grid" ? "bg-white shadow-sm" : ""
-                }`}
-              >
-                <Grid className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === "list" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("list")}
-                className={`rounded-lg ${
-                  viewMode === "list" ? "bg-white shadow-sm" : ""
-                }`}
-              >
-                <List className="w-4 h-4" />
-              </Button>
-            </div>
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Search */}
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-olive/40" />
+            <Input
+              placeholder="Search by name, tag ID, or breed..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-cream/50 border-olive/10 focus:border-olive"
+            />
           </div>
-        </Card>
+
+          {/* Filter Button */}
+          <Button
+            variant="outline"
+            className="border-olive/20 hover:border-olive/40"
+          >
+            <Filter className="w-4 h-4 mr-2" />
+            Filter
+          </Button>
+
+          {/* View Toggle */}
+        </div>
       </motion.div>
 
       {/* Quick Stats */}

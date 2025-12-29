@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Home,
   Users as GoatIcon,
@@ -11,14 +12,11 @@ import {
   Plus,
   BarChart3,
   Heart,
-  Target,
 } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  currentPage: string;
-  onNavigate: (page: string) => void;
   userName: string;
   userRole?: string;
   userStats?: {
@@ -31,8 +29,6 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({
   children,
-  currentPage,
-  onNavigate,
   userName,
   userRole = "Farm Owner",
   userStats = {
@@ -42,6 +38,7 @@ export function DashboardLayout({
     alerts: 2,
   },
 }: DashboardLayoutProps) {
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState(3);
   const [showNotifications, setShowNotifications] = useState(false);
 
@@ -57,33 +54,6 @@ export function DashboardLayout({
     { id: "reports", icon: TrendingUp, label: "Reports", badge: null },
     { id: "health", icon: Heart, label: "Health", badge: userStats.alerts },
     { id: "settings", icon: Settings, label: "Settings", badge: null },
-  ];
-
-  const quickStats = [
-    {
-      icon: TrendingUp,
-      label: "Revenue",
-      value: "₹2.45L",
-      change: "+18.2%",
-      trend: "up",
-      color: "text-gold",
-    },
-    {
-      icon: GoatIcon,
-      label: "Goats",
-      value: userStats.totalGoats,
-      change: "+3",
-      trend: "up",
-      color: "text-olive",
-    },
-    {
-      icon: Heart,
-      label: "Healthy",
-      value: userStats.healthyGoats,
-      change: "93.6%",
-      trend: "up",
-      color: "text-green-500",
-    },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -113,7 +83,7 @@ export function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-cream/20 via-olive/10 to-forest/5">
+    <div className="min-h-screen bg-linear-to-br from-cream/20 via-olive/10 to-forest/5">
       {/* Top Navigation Bar */}
       <motion.div
         initial={{ y: -100 }}
@@ -265,8 +235,6 @@ export function DashboardLayout({
         <div className="p-4 space-y-2">
           {menuItems.map((item, index) => {
             const Icon = item.icon;
-            const isActive = currentPage === item.id;
-
             return (
               <motion.div
                 key={item.id}
@@ -274,111 +242,38 @@ export function DashboardLayout({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Button
-                  variant={isActive ? "default" : "ghost"}
-                  className={`w-full justify-start gap-3 rounded-xl transition-all ${
-                    isActive
-                      ? "bg-olive/90 text-cream shadow-lg"
-                      : "text-cream/80 hover:text-cream hover:bg-white/10"
-                  }`}
-                  onClick={() => onNavigate(item.id)}
+                <NavLink
+                  to={`/${item.id}`}
+                  className={({ isActive }) =>
+                    `flex items-center w-full px-4 py-3 gap-3 rounded-xl transition-all ${
+                      isActive
+                        ? "bg-olive/90 text-cream shadow-lg"
+                        : "text-cream/80 hover:text-cream hover:bg-white/10"
+                    }`
+                  }
                 >
                   <Icon className="w-5 h-5" />
                   <span className="flex-1 text-left font-medium">
                     {item.label}
                   </span>
                   {item.badge && (
-                    <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        isActive
-                          ? "bg-forest text-cream"
-                          : "bg-olive/50 text-cream"
-                      }`}
-                    >
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-olive/50 text-cream">
                       {item.badge}
                     </span>
                   )}
-                </Button>
+                </NavLink>
               </motion.div>
             );
           })}
         </div>
 
-        <div className="p-4 mt-8">
-          <div className="bg-white/5 rounded-2xl p-4 border border-white/10 backdrop-blur-sm">
-            <div className="flex items-center gap-2 mb-4">
-              <TrendingUp className="w-4 h-4 text-gold" />
-              <span className="text-xs font-bold text-cream/90 uppercase tracking-wider">
-                Quick Stats
-              </span>
-            </div>
-            <div className="space-y-3">
-              {quickStats.map((stat, index) => (
-                <div key={index}>
-                  <div className="flex items-center justify-between mb-1">
-                    <p className="text-[10px] text-cream/50 uppercase tracking-widest">
-                      {stat.label}
-                    </p>
-                    <div className="flex items-center gap-1">
-                      {stat.trend === "up" ? (
-                        <TrendingUp className={`w-3 h-3 ${stat.color}`} />
-                      ) : (
-                        <TrendingUp
-                          className={`w-3 h-3 ${stat.color} rotate-90`}
-                        />
-                      )}
-                      <span className="text-xs font-bold text-cream/70">
-                        {stat.change}
-                      </span>
-                    </div>
-                  </div>
-                  <p className="text-lg font-serif font-bold text-cream">
-                    {stat.value}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Daily Goal */}
-          <div className="mt-4 bg-gradient-to-br from-olive/20 to-forest/20 rounded-2xl p-4 border border-white/10">
-            <div className="flex items-center gap-2 mb-3">
-              <Target className="w-4 h-4 text-gold" />
-              <span className="text-xs font-bold text-cream/90 uppercase tracking-wider">
-                Daily Goal
-              </span>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-cream/80">Feeding</span>
-                <span className="text-xs text-cream/60">12/15 completed</span>
-              </div>
-              <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "80%" }}
-                  className="h-full bg-gold"
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-cream/80">Health Checks</span>
-                <span className="text-xs text-cream/60">8/10 completed</span>
-              </div>
-              <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: "80%" }}
-                  className="h-full bg-green-400"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Action Buttons */}
         <div className="p-4 mt-8">
           <div className="space-y-2">
-            <Button className="w-full bg-gold text-forest font-medium hover:bg-gold/90 rounded-xl flex items-center justify-center gap-2">
+            <Button
+              onClick={() => navigate("/goats/add")}
+              className="w-full bg-gold text-forest font-medium hover:bg-gold/90 rounded-xl flex items-center justify-center gap-2"
+            >
               <Plus className="w-4 h-4" />
               Add New Goat
             </Button>

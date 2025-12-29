@@ -20,7 +20,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
       {/* LEFT — CINEMATIC GOAT VISUAL */}
       <div className="relative hidden lg:block">
         <img
-          src="/goo1.jpg"
+          src="/goo.jpg"
           className="w-full h-full object-cover"
           alt="Goat"
         />
