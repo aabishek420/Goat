@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Plus, Filter, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +12,6 @@ export function GoatsPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
-  const [viewMode, setViewMode] = useState("grid");
 
   // Mock goat data
   const goats: Goat[] = [
@@ -160,34 +158,26 @@ export function GoatsPage() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-      >
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-display font-bold text-foreground mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             {t("goats.title")}
           </h1>
-          <p className="text-muted-foreground font-medium">
+          <p className="text-muted-foreground">
             {t("goats.subtitle")}
           </p>
         </div>
         <Button
           onClick={() => navigate("/goats/add")}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground shadow hover:shadow-md"
         >
           <Plus className="w-4 h-4 mr-2" />
           {t("common.add_new_goat")}
         </Button>
-      </motion.div>
+      </div>
 
       {/* Filters & Search */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
+      <div>
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
@@ -196,110 +186,78 @@ export function GoatsPage() {
               placeholder={t("goats.search_placeholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-card border-border focus:border-ring"
+              className="pl-10 bg-card border-border focus:border-primary"
             />
           </div>
 
           {/* Filter Button */}
-          <Button variant="outline" className="border-border hover:border-ring">
+          <Button variant="outline" className="border-border hover:border-primary">
             <Filter className="w-4 h-4 mr-2" />
             {t("goats.filter")}
           </Button>
-
-          {/* View Toggle */}
         </div>
-      </motion.div>
+      </div>
 
       {/* Quick Stats */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-6"
-      >
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[
           {
             label: t("goats.total"),
             value: goats.length,
-            color: "from-olive to-forest",
+            color: "bg-primary",
           },
           {
             label: t("goats.healthy"),
             value: goats.filter((g) => g.status === "healthy").length,
-            color: "from-green-600 to-green-700",
+            color: "bg-green-600",
           },
           {
             label: t("goats.pregnant"),
             value: goats.filter((g) => g.status === "pregnant").length,
-            color: "from-blue-600 to-blue-700",
+            color: "bg-blue-600",
           },
           {
             label: t("goats.need_care"),
             value: goats.filter((g) => g.status === "sick").length,
-            color: "from-red-600 to-red-700",
+            color: "bg-red-600",
           },
-        ].map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3 + index * 0.1 }}
-          >
-            <Card className="border-olive/10 p-6 bg-white/50 backdrop-blur-sm rounded-3xl shadow-sm">
-              <p className="text-xs font-bold text-olive/50 uppercase tracking-widest mb-1">
+        ].map((stat) => (
+          <div key={stat.label}>
+            <Card className="border-border p-6 bg-card rounded-xl shadow">
+              <p className="text-sm font-medium text-muted-foreground mb-1">
                 {stat.label}
               </p>
-              <p className="text-3xl font-serif font-bold text-forest">
+              <p className="text-2xl font-bold text-foreground">
                 {stat.value}
               </p>
-              <div className="mt-4 h-1.5 bg-cream rounded-full overflow-hidden">
-                <div className={`h-full bg-linear-to-r ${stat.color} w-full`} />
+              <div className="mt-4 h-1.5 bg-muted rounded-full overflow-hidden">
+                <div className={`h-full ${stat.color} w-full`} />
               </div>
             </Card>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* Goats Grid */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className={`grid gap-8 ${
-          viewMode === "grid"
-            ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-            : "grid-cols-1"
-        }`}
-      >
-        {filteredGoats.map((goat, index) => (
-          <motion.div
-            key={goat.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 + index * 0.1 }}
-          >
-            <GoatCard goat={goat} onView={handleViewGoat} />
-          </motion.div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredGoats.map((goat) => (
+          <GoatCard key={goat.id} goat={goat} onView={handleViewGoat} />
         ))}
-      </motion.div>
+      </div>
 
       {/* Empty State */}
       {filteredGoats.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-20"
-        >
-          <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-4">
-            <Search className="w-10 h-10 text-muted-foreground" />
+        <div className="text-center py-20">
+          <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+            <Search className="w-8 h-8 text-muted-foreground" />
           </div>
-          <h3 className="text-2xl font-display font-bold text-foreground mb-2">
+          <h3 className="text-xl font-bold text-foreground mb-2">
             {t("goats.no_goats_found")}
           </h3>
-          <p className="text-muted-foreground font-medium">
+          <p className="text-muted-foreground">
             {t("goats.adjust_search")}
           </p>
-        </motion.div>
+        </div>
       )}
     </div>
   );

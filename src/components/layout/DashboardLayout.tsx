@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   Home,
@@ -42,8 +41,9 @@ export function DashboardLayout({
 }: DashboardLayoutProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState(3);
+  const [notifications] = useState(3);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const menuItems = [
     { id: "dashboard", icon: Home, label: t("common.dashboard"), badge: null },
@@ -68,8 +68,6 @@ export function DashboardLayout({
       badge: null,
     },
   ];
-
-  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const notificationItems = [
     {
@@ -96,13 +94,9 @@ export function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-background via-primary/5 to-foreground/5">
+    <div className="min-h-screen bg-gradient-to-br from-background via-primary/5 to-foreground/5">
       {/* Top Navigation Bar */}
-      <motion.div
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 h-16 bg-background/90 backdrop-blur-xl border-b border-border z-50 shadow-sm"
-      >
+      <div className="fixed top-0 left-0 right-0 h-16 bg-background/95 border-b border-border z-50 shadow">
         <div className="h-full px-6 flex items-center justify-between">
           {/* Left Section */}
           <div className="flex items-center gap-4">
@@ -120,7 +114,7 @@ export function DashboardLayout({
             </Button>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow">
                 <img
                   src="/glogo.png"
                   alt="logo"
@@ -128,55 +122,36 @@ export function DashboardLayout({
                 />
               </div>
               <div className="hidden md:block">
-                <h2 className="text-foreground font-display font-bold text-lg">
+                <h2 className="text-foreground font-bold text-lg">
                   GOAT EMPIRE
                 </h2>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
+                <p className="text-xs text-muted-foreground uppercase tracking-wide">
                   Intelligence Platform
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Center - Search Bar */}
-          {/* <div className="hidden md:flex items-center flex-1 max-w-xl mx-8">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-olive/50" />
-              <Input
-                placeholder="Search goats, records, marketplace..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 bg-cream/50 border-olive/20 rounded-xl focus:border-olive focus:ring-2 focus:ring-olive/20 transition-all"
-              />
-            </div>
-          </div> */}
-
           {/* Right Section */}
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
 
             {/* Notifications */}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <div className="relative">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowNotifications(!showNotifications)}
-                  className="relative"
-                >
-                  <Bell className="w-5 h-5 text-foreground" />
-                  {notifications > 0 && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center text-xs border-2 border-background"
-                    >
-                      {notifications}
-                    </motion.span>
-                  )}
-                </Button>
-              </div>
-            </motion.div>
+            <div className="relative">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowNotifications(!showNotifications)}
+                className="relative"
+              >
+                <Bell className="w-5 h-5 text-foreground" />
+                {notifications > 0 && (
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center text-xs border-2 border-background">
+                    {notifications}
+                  </span>
+                )}
+              </Button>
+            </div>
 
             {/* User Profile */}
             <div className="flex items-center gap-3 pl-4 border-l border-border">
@@ -184,43 +159,36 @@ export function DashboardLayout({
                 <p className="text-sm font-bold text-foreground">{userName}</p>
                 <p className="text-xs text-muted-foreground">{userRole}</p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground font-bold text-sm shadow-lg">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground font-bold text-sm shadow">
                 {userName.charAt(0)}
               </div>
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Notifications Dropdown */}
       {showNotifications && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="absolute top-16 right-6 w-80 bg-card rounded-2xl shadow-xl border border-border z-50"
-        >
+        <div className="fixed top-16 right-6 w-80 bg-card rounded-xl shadow-lg border border-border z-50">
           <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold text-foreground">
                 {t("common.notifications")}
               </h3>
               <button
-                onClick={() => setNotifications(0)}
+                onClick={() => setShowNotifications(false)}
                 className="text-xs text-muted-foreground hover:text-primary"
               >
-                Mark all as read
+                Close
               </button>
             </div>
           </div>
           <div className="max-h-96 overflow-y-auto">
-            {notificationItems.map((item, index) => (
-              <motion.div
+            {notificationItems.map((item) => (
+              <div
                 key={item.id}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.05 }}
                 className="p-4 hover:bg-muted/50 border-b border-border last:border-b-0 cursor-pointer"
+                onClick={() => setShowNotifications(false)}
               >
                 <div className="flex items-start gap-3">
                   <div
@@ -239,49 +207,49 @@ export function DashboardLayout({
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -280 }}
-        animate={{ x: sidebarOpen ? 0 : -280 }}
-        className="fixed left-0 top-16 bottom-0 w-64 bg-linear-to-br from-primary to-primary/90 border-r border-primary-foreground/10 z-40 overflow-y-auto"
+      <aside
+        className={`fixed left-0 top-16 bottom-0 w-64 bg-gradient-to-br from-primary to-primary/90 border-r border-primary-foreground/10 z-40 overflow-y-auto transition-transform duration-200 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <div className="p-4 space-y-2">
-          {menuItems.map((item, index) => {
+          {menuItems.map((item) => {
             const Icon = item.icon;
             return (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
+              <div key={item.id}>
                 <NavLink
                   to={`/${item.id}`}
                   className={({ isActive }) =>
-                    `flex items-center w-full px-4 py-3 gap-3 rounded-xl transition-all ${
+                    `flex items-center w-full px-4 py-3 gap-3 rounded-lg transition-all ${
                       isActive
-                        ? "bg-primary-foreground/20 text-primary-foreground shadow-lg"
+                        ? "bg-primary-foreground/20 text-primary-foreground shadow"
                         : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                     }`
                   }
+                  onClick={() => {
+                    if (window.innerWidth < 1024) {
+                      setSidebarOpen(false);
+                    }
+                  }}
                 >
                   <Icon className="w-5 h-5" />
                   <span className="flex-1 text-left font-medium">
                     {item.label}
                   </span>
                   {item.badge && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-foreground/20 text-primary-foreground">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-primary-foreground/20 text-primary-foreground">
                       {item.badge}
                     </span>
                   )}
                 </NavLink>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -290,38 +258,39 @@ export function DashboardLayout({
         <div className="p-4 mt-8">
           <div className="space-y-2">
             <Button
-              onClick={() => navigate("/goats/add")}
-              className="w-full bg-accent text-accent-foreground font-medium hover:bg-accent/90 rounded-xl flex items-center justify-center gap-2"
+              onClick={() => {
+                navigate("/goats/add");
+                if (window.innerWidth < 1024) setSidebarOpen(false);
+              }}
+              className="w-full bg-accent text-accent-foreground font-medium hover:bg-accent/90 rounded-lg flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
               {t("common.add_new_goat")}
             </Button>
             <Button
               variant="outline"
-              className="w-full text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 rounded-xl"
+              className="w-full text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 rounded-lg"
             >
               Export Report
             </Button>
           </div>
         </div>
-      </motion.aside>
+      </aside>
 
       {/* Main Content */}
       <main
-        className={`pt-16 transition-all duration-300 ${
+        className={`pt-16 transition-all duration-200 ${
           sidebarOpen ? "lg:pl-64" : "pl-0"
         }`}
       >
-        <div className="p-6 lg:p-10">{children}</div>
+        <div className="p-6 lg:p-8">{children}</div>
       </main>
 
       {/* Mobile Overlay */}
       {sidebarOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+        <div
           onClick={() => setSidebarOpen(false)}
-          className="lg:hidden fixed inset-0 bg-black/50 z-30 top-16 backdrop-blur-sm"
+          className="lg:hidden fixed inset-0 bg-black/30 z-30 top-16"
         />
       )}
     </div>

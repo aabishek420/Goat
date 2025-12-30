@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ShoppingBag, MapPin, Phone, TrendingUp, Heart } from "lucide-react";
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
@@ -123,142 +122,115 @@ export function Marketplace() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
-      >
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl text-forest mb-2">Marketplace</h1>
-          <p className="text-dust">Buy and sell premium goats</p>
+          <h1 className="text-2xl font-bold text-foreground mb-2">Marketplace</h1>
+          <p className="text-muted-foreground">Buy and sell premium goats</p>
         </div>
-        <Button className="bg-gold hover:bg-dust text-forest">
+        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
           <ShoppingBag className="w-4 h-4 mr-2" />
           List Your Goat
         </Button>
-      </motion.div>
+      </div>
 
       {/* Categories */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
-        <Card className="border-dust/20 p-4">
+      <div>
+        <Card className="border-border p-4">
           <div className="flex flex-wrap gap-2">
-            {categories.map((category, index) => (
-              <motion.button
+            {categories.map((category) => (
+              <button
                 key={category.id}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 + index * 0.05 }}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-4 py-2 rounded-xl transition-all ${
+                className={`px-3 py-2 rounded-lg transition-colors ${
                   selectedCategory === category.id
-                    ? "bg-olive text-cream shadow-lg"
-                    : "bg-cream/50 text-forest hover:bg-cream"
+                    ? "bg-primary text-primary-foreground shadow"
+                    : "bg-card text-foreground hover:bg-muted border border-border"
                 }`}
               >
                 {category.label}
                 <span
-                  className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
+                  className={`ml-2 px-1.5 py-0.5 rounded text-xs ${
                     selectedCategory === category.id
-                      ? "bg-gold text-forest"
-                      : "bg-dust/30 text-forest"
+                      ? "bg-primary-foreground/20 text-primary-foreground"
+                      : "bg-muted text-muted-foreground"
                   }`}
                 >
                   {category.count}
                 </span>
-              </motion.button>
+              </button>
             ))}
           </div>
         </Card>
-      </motion.div>
+      </div>
 
       {/* Featured Listings */}
       {selectedCategory === "all" && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-        >
+        <div>
           <div className="flex items-center gap-2 mb-4">
-            <TrendingUp className="w-5 h-5 text-gold" />
-            <h2 className="text-xl text-forest">Featured Listings</h2>
+            <TrendingUp className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-semibold text-foreground">Featured Listings</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {listings
               .filter((l) => l.featured)
-              .map((listing, index) => (
-                <motion.div
-                  key={listing.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <Card className="overflow-hidden border-gold/40 shadow-lg hover:shadow-xl transition-all">
+              .map((listing) => (
+                <div key={listing.id}>
+                  <Card className="overflow-hidden border-border hover:border-primary/30 transition-all shadow hover:shadow-md">
                     <div className="flex flex-col md:flex-row">
                       {/* Image */}
-                      <div className="relative w-full md:w-48 h-48 bg-gradient-to-br from-dust to-olive">
+                      <div className="relative w-full md:w-48 h-48 bg-muted">
                         <img
                           src={listing.image}
                           alt={listing.goatName}
                           className="w-full h-full object-cover"
                         />
-                        <Badge className="absolute top-3 right-3 bg-gold text-forest border-none">
+                        <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground border-none">
                           Featured
                         </Badge>
-                        <motion.button
-                          whileHover={{ scale: 1.2 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="absolute top-3 left-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center"
-                        >
+                        <button className="absolute top-3 left-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center">
                           <Heart className="w-4 h-4 text-red-500" />
-                        </motion.button>
+                        </button>
                       </div>
 
                       {/* Content */}
-                      <div className="flex-1 p-5">
-                        <h3 className="text-lg text-forest mb-2">
+                      <div className="flex-1 p-4">
+                        <h3 className="text-lg font-semibold text-foreground mb-2">
                           {listing.goatName}
                         </h3>
-                        <p className="text-sm text-dust mb-3">
+                        <p className="text-sm text-muted-foreground mb-3">
                           {listing.breed}
                         </p>
 
                         <div className="grid grid-cols-2 gap-2 mb-4">
                           <div className="text-sm">
-                            <span className="text-dust">Age:</span>
-                            <span className="text-forest ml-1">
+                            <span className="text-muted-foreground">Age:</span>
+                            <span className="text-foreground ml-1">
                               {listing.age}
                             </span>
                           </div>
                           <div className="text-sm">
-                            <span className="text-dust">Weight:</span>
-                            <span className="text-forest ml-1">
+                            <span className="text-muted-foreground">Weight:</span>
+                            <span className="text-foreground ml-1">
                               {listing.weight}
                             </span>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 mb-3 text-sm text-dust">
+                        <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
                           <MapPin className="w-4 h-4" />
                           {listing.location}
                         </div>
 
-                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-dust/20">
+                        <div className="flex items-center justify-between mt-4 pt-4 border-t border-border">
                           <div>
-                            <p className="text-2xl text-forest">
+                            <p className="text-xl font-bold text-foreground">
                               ₹{listing.price.toLocaleString()}
                             </p>
                             {listing.negotiable && (
-                              <p className="text-xs text-dust">Negotiable</p>
+                              <p className="text-xs text-muted-foreground">Negotiable</p>
                             )}
                           </div>
-                          <Button className="bg-olive hover:bg-forest text-white">
+                          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                             <Phone className="w-4 h-4 mr-2" />
                             Contact
                           </Button>
@@ -266,100 +238,83 @@ export function Marketplace() {
                       </div>
                     </div>
                   </Card>
-                </motion.div>
+                </div>
               ))}
           </div>
-        </motion.div>
+        </div>
       )}
 
       {/* All Listings Grid */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <h2 className="text-xl text-forest mb-4">
+      <div>
+        <h2 className="text-lg font-semibold text-foreground mb-4">
           {selectedCategory === "all"
             ? "All Listings"
-            : `${
-                selectedCategory.charAt(0).toUpperCase() +
-                selectedCategory.slice(1)
-              } Listings`}
+            : `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Listings`}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredListings.map((listing, index) => (
-            <motion.div
-              key={listing.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 + index * 0.1 }}
-              whileHover={{ y: -5 }}
-            >
-              <Card className="overflow-hidden border-dust/20 hover:border-olive/40 transition-all shadow-lg hover:shadow-xl">
+          {filteredListings.map((listing) => (
+            <div key={listing.id}>
+              <Card className="overflow-hidden border-border hover:border-primary/30 transition-all shadow hover:shadow-md">
                 {/* Image */}
-                <div className="relative h-48 bg-gradient-to-br from-dust to-olive">
+                <div className="relative h-48 bg-muted">
                   <img
                     src={listing.image}
                     alt={listing.goatName}
                     className="w-full h-full object-cover"
                   />
                   {listing.featured && (
-                    <Badge className="absolute top-3 right-3 bg-gold text-forest border-none">
+                    <Badge className="absolute top-3 right-3 bg-primary text-primary-foreground border-none">
                       Featured
                     </Badge>
                   )}
-                  <motion.button
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                    className="absolute top-3 left-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center"
-                  >
+                  <button className="absolute top-3 left-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center">
                     <Heart className="w-4 h-4 text-red-500" />
-                  </motion.button>
+                  </button>
                 </div>
 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="text-forest mb-1">{listing.goatName}</h3>
-                  <p className="text-sm text-dust mb-3">{listing.breed}</p>
+                  <h3 className="font-semibold text-foreground mb-1">{listing.goatName}</h3>
+                  <p className="text-sm text-muted-foreground mb-3">{listing.breed}</p>
 
                   <div className="space-y-1 mb-3 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-dust">Age:</span>
-                      <span className="text-forest">{listing.age}</span>
+                      <span className="text-muted-foreground">Age:</span>
+                      <span className="text-foreground">{listing.age}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-dust">Weight:</span>
-                      <span className="text-forest">{listing.weight}</span>
+                      <span className="text-muted-foreground">Weight:</span>
+                      <span className="text-foreground">{listing.weight}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2 mb-3 text-sm text-dust">
+                  <div className="flex items-center gap-2 mb-3 text-sm text-muted-foreground">
                     <MapPin className="w-3 h-3" />
                     {listing.location}
                   </div>
 
-                  <div className="pt-3 border-t border-dust/20">
+                  <div className="pt-3 border-t border-border">
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <p className="text-xl text-forest">
+                        <p className="text-lg font-bold text-foreground">
                           ₹{listing.price.toLocaleString()}
                         </p>
                         {listing.negotiable && (
-                          <p className="text-xs text-dust">Negotiable</p>
+                          <p className="text-xs text-muted-foreground">Negotiable</p>
                         )}
                       </div>
                     </div>
-                    <Button className="w-full bg-olive hover:bg-forest text-white">
+                    <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                       <Phone className="w-4 h-4 mr-2" />
                       Contact Seller
                     </Button>
                   </div>
                 </div>
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

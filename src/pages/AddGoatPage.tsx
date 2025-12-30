@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Plus, ArrowLeft, Camera, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
@@ -99,71 +98,57 @@ const AddGoatPage: React.FC = () => {
   return (
     <div className="space-y-8 p-6">
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-      >
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
-          <h1 className="text-4xl font-serif font-bold text-forest mb-2">
+          <h1 className="text-3xl font-bold text-foreground mb-2">
             Add New Goat
           </h1>
-          <p className="text-olive/70 font-medium">
+          <p className="text-muted-foreground">
             Register a new goat to your herd
           </p>
         </div>
         <Button
           onClick={() => navigate("/goats")}
           variant="outline"
-          className="border-olive/20 hover:border-olive/40 text-forest"
+          className="border-border hover:border-primary"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Goats
         </Button>
-      </motion.div>
+      </div>
 
       {/* Breadcrumb */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
-        <nav className="flex items-center space-x-2 text-sm text-olive/70">
+      <div>
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
           <NavLink
             to="/dashboard"
-            className="hover:text-forest transition-colors"
+            className="hover:text-foreground transition-colors"
           >
             Dashboard
           </NavLink>
           <span>/</span>
-          <NavLink to="/goats" className="hover:text-forest transition-colors">
+          <NavLink to="/goats" className="hover:text-foreground transition-colors">
             Goats
           </NavLink>
           <span>/</span>
-          <span className="text-forest font-medium">Add New</span>
+          <span className="text-foreground font-medium">Add New</span>
         </nav>
-      </motion.div>
+      </div>
 
       {/* Form Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        <Card className="border-olive/10 p-8 bg-white/50 backdrop-blur-sm rounded-3xl shadow-sm">
-          <h2 className="text-2xl font-serif font-bold text-forest mb-6">
+      <div>
+        <Card className="border-border p-6 bg-card rounded-xl shadow">
+          <h2 className="text-xl font-bold text-foreground mb-6">
             Goat Information
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Image Upload Section */}
-            <div className="flex flex-col items-center justify-center space-y-4 pb-8 border-b border-cream">
-              <div className="relative group">
+            <div className="flex flex-col items-center justify-center space-y-4 pb-8 border-b">
+              <div className="relative">
                 <div
-                  className={`w-40 h-40 rounded-full border-2 border-dashed border-olive/30 flex items-center justify-center overflow-hidden bg-cream/30 transition-all ${
-                    !imagePreview
-                      ? "hover:border-olive/50 hover:bg-cream/50"
-                      : ""
+                  className={`w-40 h-40 rounded-full border-2 border-dashed border-border flex items-center justify-center overflow-hidden bg-muted/30 ${
+                    !imagePreview ? "hover:border-primary/50 hover:bg-muted/50" : ""
                   }`}
                 >
                   {imagePreview ? (
@@ -176,7 +161,7 @@ const AddGoatPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={removeImage}
-                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -186,8 +171,8 @@ const AddGoatPage: React.FC = () => {
                       htmlFor="image-upload"
                       className="cursor-pointer flex flex-col items-center space-y-2"
                     >
-                      <Camera className="w-10 h-10 text-olive/40" />
-                      <span className="text-xs font-medium text-olive/60">
+                      <Camera className="w-10 h-10 text-muted-foreground" />
+                      <span className="text-xs font-medium text-muted-foreground">
                         Upload Photo
                       </span>
                       <input
@@ -201,7 +186,7 @@ const AddGoatPage: React.FC = () => {
                   )}
                 </div>
                 {!imagePreview && (
-                  <div className="absolute -bottom-2 -right-2 bg-olive text-cream p-2 rounded-full shadow-lg cursor-pointer hover:bg-forest transition-colors">
+                  <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground p-2 rounded-full shadow cursor-pointer hover:bg-primary/90">
                     <label htmlFor="image-upload" className="cursor-pointer">
                       <Plus className="w-4 h-4" />
                     </label>
@@ -209,10 +194,10 @@ const AddGoatPage: React.FC = () => {
                 )}
               </div>
               <div className="text-center">
-                <p className="text-sm font-medium text-forest">
+                <p className="text-sm font-medium text-foreground">
                   Goat Profile Image
                 </p>
-                <p className="text-xs text-olive/60">
+                <p className="text-xs text-muted-foreground">
                   JPG, PNG or WebP (Max 5MB)
                 </p>
               </div>
@@ -220,7 +205,7 @@ const AddGoatPage: React.FC = () => {
 
             {/* Basic Information Section */}
             <div>
-              <h3 className="text-lg font-semibold text-forest mb-4 pb-2 border-b border-cream">
+              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
                 Basic Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -228,7 +213,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="goat_id"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Goat ID *
                   </label>
@@ -239,7 +224,7 @@ const AddGoatPage: React.FC = () => {
                     value={formData.goat_id}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., GT-2847"
                   />
                 </div>
@@ -248,7 +233,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="gender"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Gender *
                   </label>
@@ -258,7 +243,7 @@ const AddGoatPage: React.FC = () => {
                     value={formData.gender}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all appearance-none"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   >
                     <option value="">Select Gender</option>
                     <option value="male">Male</option>
@@ -270,7 +255,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="breed"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Breed
                   </label>
@@ -280,7 +265,7 @@ const AddGoatPage: React.FC = () => {
                     name="breed"
                     value={formData.breed}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., Sirohi, Beetal"
                   />
                 </div>
@@ -289,7 +274,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="color"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Color
                   </label>
@@ -299,7 +284,7 @@ const AddGoatPage: React.FC = () => {
                     name="color"
                     value={formData.color}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., Brown & White"
                   />
                 </div>
@@ -308,7 +293,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="state"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     State
                   </label>
@@ -318,7 +303,7 @@ const AddGoatPage: React.FC = () => {
                     name="state"
                     value={formData.state}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="Enter state"
                   />
                 </div>
@@ -327,7 +312,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="country"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Country
                   </label>
@@ -337,7 +322,7 @@ const AddGoatPage: React.FC = () => {
                     name="country"
                     value={formData.country}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="Enter country"
                   />
                 </div>
@@ -346,7 +331,7 @@ const AddGoatPage: React.FC = () => {
 
             {/* Parent Information Section */}
             <div>
-              <h3 className="text-lg font-semibold text-forest mb-4 pb-2 border-b border-cream">
+              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
                 Parent Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -354,7 +339,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="father_goat_id"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Father Goat
                   </label>
@@ -363,7 +348,7 @@ const AddGoatPage: React.FC = () => {
                     name="father_goat_id"
                     value={formData.father_goat_id || ""}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all appearance-none"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   >
                     <option value="">None</option>
                     {parentGoats.map((goat) => (
@@ -378,7 +363,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="mother_goat_id"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Mother Goat
                   </label>
@@ -387,7 +372,7 @@ const AddGoatPage: React.FC = () => {
                     name="mother_goat_id"
                     value={formData.mother_goat_id || ""}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all appearance-none"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   >
                     <option value="">None</option>
                     {parentGoats.map((goat) => (
@@ -402,7 +387,7 @@ const AddGoatPage: React.FC = () => {
 
             {/* Health & Measurements Section */}
             <div>
-              <h3 className="text-lg font-semibold text-forest mb-4 pb-2 border-b border-cream">
+              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
                 Health & Measurements
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -410,7 +395,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="age"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Age (months)
                   </label>
@@ -420,7 +405,7 @@ const AddGoatPage: React.FC = () => {
                     name="age"
                     value={formData.age}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 24"
                   />
                 </div>
@@ -429,7 +414,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="current_weight"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Current Weight (KG)
                   </label>
@@ -439,7 +424,7 @@ const AddGoatPage: React.FC = () => {
                     name="current_weight"
                     value={formData.current_weight}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 45"
                   />
                 </div>
@@ -448,7 +433,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="sourcing_weight"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Sourcing Weight (KG)
                   </label>
@@ -458,7 +443,7 @@ const AddGoatPage: React.FC = () => {
                     name="sourcing_weight"
                     value={formData.sourcing_weight}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 40"
                   />
                 </div>
@@ -467,7 +452,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="no_of_baby_teeth"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     No. of Baby Teeth
                   </label>
@@ -477,7 +462,7 @@ const AddGoatPage: React.FC = () => {
                     name="no_of_baby_teeth"
                     value={formData.no_of_baby_teeth}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 8"
                   />
                 </div>
@@ -486,7 +471,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="no_of_permanent_teeth"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     No. of Permanent Teeth
                   </label>
@@ -496,7 +481,7 @@ const AddGoatPage: React.FC = () => {
                     name="no_of_permanent_teeth"
                     value={formData.no_of_permanent_teeth}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 24"
                   />
                 </div>
@@ -505,7 +490,7 @@ const AddGoatPage: React.FC = () => {
 
             {/* Financial Information Section */}
             <div>
-              <h3 className="text-lg font-semibold text-forest mb-4 pb-2 border-b border-cream">
+              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
                 Financial Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -513,7 +498,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="goat_price"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Goat Price (₹)
                   </label>
@@ -523,7 +508,7 @@ const AddGoatPage: React.FC = () => {
                     name="goat_price"
                     value={formData.goat_price}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 18000"
                   />
                 </div>
@@ -532,7 +517,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="overhead_cost"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Overhead Cost (₹)
                   </label>
@@ -542,7 +527,7 @@ const AddGoatPage: React.FC = () => {
                     name="overhead_cost"
                     value={formData.overhead_cost}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 2000"
                   />
                 </div>
@@ -551,7 +536,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="procurement_cost"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Procurement Cost (₹)
                   </label>
@@ -561,7 +546,7 @@ const AddGoatPage: React.FC = () => {
                     name="procurement_cost"
                     value={formData.procurement_cost}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                     placeholder="e.g., 20000"
                   />
                 </div>
@@ -570,7 +555,7 @@ const AddGoatPage: React.FC = () => {
 
             {/* Dates Section */}
             <div>
-              <h3 className="text-lg font-semibold text-forest mb-4 pb-2 border-b border-cream">
+              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
                 Important Dates
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -578,7 +563,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="sourcing_date"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Sourcing Date
                   </label>
@@ -588,7 +573,7 @@ const AddGoatPage: React.FC = () => {
                     name="sourcing_date"
                     value={formData.sourcing_date}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   />
                 </div>
 
@@ -596,7 +581,7 @@ const AddGoatPage: React.FC = () => {
                 <div className="space-y-2">
                   <label
                     htmlFor="weighing_date"
-                    className="block text-sm font-medium text-olive"
+                    className="block text-sm font-medium text-foreground"
                   >
                     Weighing Date
                   </label>
@@ -606,7 +591,7 @@ const AddGoatPage: React.FC = () => {
                     name="weighing_date"
                     value={formData.weighing_date}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-cream/50 border border-olive/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-olive/30 focus:border-olive transition-all"
+                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   />
                 </div>
               </div>
@@ -622,11 +607,11 @@ const AddGoatPage: React.FC = () => {
                     name="is_tagged"
                     checked={formData.is_tagged}
                     onChange={handleChange}
-                    className="h-5 w-5 text-olive border-olive/30 rounded focus:ring-olive/50"
+                    className="h-5 w-5 text-primary border-border rounded focus:ring-primary/50"
                   />
                   <label
                     htmlFor="is_tagged"
-                    className="text-sm font-medium text-olive"
+                    className="text-sm font-medium text-foreground"
                   >
                     Is Tagged
                   </label>
@@ -639,11 +624,11 @@ const AddGoatPage: React.FC = () => {
                     name="is_selling_ready"
                     checked={formData.is_selling_ready}
                     onChange={handleChange}
-                    className="h-5 w-5 text-olive border-olive/30 rounded focus:ring-olive/50"
+                    className="h-5 w-5 text-primary border-border rounded focus:ring-primary/50"
                   />
                   <label
                     htmlFor="is_selling_ready"
-                    className="text-sm font-medium text-olive"
+                    className="text-sm font-medium text-foreground"
                   >
                     Is Selling Ready
                   </label>
@@ -656,11 +641,11 @@ const AddGoatPage: React.FC = () => {
                     name="sold_out"
                     checked={formData.sold_out}
                     onChange={handleChange}
-                    className="h-5 w-5 text-olive border-olive/30 rounded focus:ring-olive/50"
+                    className="h-5 w-5 text-primary border-border rounded focus:ring-primary/50"
                   />
                   <label
                     htmlFor="sold_out"
-                    className="text-sm font-medium text-olive"
+                    className="text-sm font-medium text-foreground"
                   >
                     Sold Out
                   </label>
@@ -669,23 +654,18 @@ const AddGoatPage: React.FC = () => {
             </div>
 
             {/* Submit Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="pt-6 border-t border-cream"
-            >
+            <div className="pt-6 border-t">
               <Button
                 type="submit"
-                className="w-full md:w-auto bg-olive hover:bg-forest text-cream shadow-lg hover:shadow-xl transition-all px-8 py-6 text-lg font-medium rounded-2xl"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground shadow hover:shadow-md px-8 py-4 text-base font-medium rounded-lg"
               >
                 <Plus className="w-5 h-5 mr-3" />
                 Add Goat to Herd
               </Button>
-            </motion.div>
+            </div>
           </form>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 };

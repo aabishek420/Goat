@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   Heart,
   TrendingUp,
@@ -61,177 +60,152 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
   ).toFixed(1);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-    >
-      <Card className="overflow-hidden border-border hover:border-primary/30 transition-all shadow-sm hover:shadow-xl bg-card backdrop-blur-sm rounded-3xl">
-        {/* Image Section */}
-        <div className="relative h-52 overflow-hidden bg-linear-to-br from-primary to-primary/80">
-          {goat.photos && goat.photos.length > 0 ? (
-            <img
-              src={goat.photos[0]}
-              alt={goat.name}
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <svg
-                width="80"
-                height="80"
-                viewBox="0 0 80 80"
-                fill="currentColor"
-                className="text-primary-foreground/20"
-              >
-                <path d="M15 45 Q 22.5 30, 40 37.5 L 43.75 33.75 L 41.875 37.5 Q 50 33.75, 58.75 37.5 L 63.75 26.25 Q 66.25 37.5, 70 37.5 L 73.75 45 L 70 60 L 63.75 63.75 L 56.25 63.75 L 50 60 L 43.75 63.75 L 36.25 63.75 L 28.75 60 Z" />
-              </svg>
-            </div>
-          )}
-
-          {/* Status Badge */}
-          <div className="absolute top-4 right-4">
-            <Badge
-              className={`${getStatusColor(
-                goat.status
-              )} text-white border-none px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg`}
+    <Card className="overflow-hidden border-border hover:border-primary/30 transition-all shadow-sm hover:shadow-md bg-card rounded-xl group">
+      {/* Image Section */}
+      <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary/10 to-primary/5">
+        {goat.photos && goat.photos.length > 0 ? (
+          <img
+            src={goat.photos[0]}
+            alt={goat.name}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <svg
+              width="64"
+              height="64"
+              viewBox="0 0 64 64"
+              fill="currentColor"
+              className="text-primary/20"
             >
-              {getStatusLabel(goat.status)}
-            </Badge>
+              <path d="M12 36 Q 18 24, 32 30 L 35 27 L 33.5 30 Q 40 27, 47 30 L 51 21 Q 53 30, 56 30 L 59 36 L 56 48 L 51 51 L 45 51 L 40 48 L 35 51 L 29 51 L 23 48 Z" />
+            </svg>
           </div>
+        )}
 
-          {/* Tag ID */}
-          <div className="absolute bottom-4 left-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full shadow-lg border border-white/10">
-            <p className="text-[10px] text-white font-bold tracking-widest">
-              #{goat.tagId}
-            </p>
-          </div>
-
-          {/* Favorite Heart */}
-          <motion.button
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-            className="absolute top-4 left-4 w-9 h-9 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg border border-white/20"
+        {/* Status Badge */}
+        <div className="absolute top-3 right-3">
+          <Badge
+            className={`${getStatusColor(
+              goat.status
+            )} text-white border-none px-3 py-1 rounded-full text-xs font-semibold uppercase`}
           >
-            <Heart className="w-4 h-4 text-red-500" />
-          </motion.button>
+            {getStatusLabel(goat.status)}
+          </Badge>
         </div>
 
-        {/* Content Section */}
-        <div className="p-6">
-          {/* Name & Breed */}
-          <div className="mb-6">
-            <h3 className="text-xl font-display font-bold text-foreground mb-1">
-              {goat.name}
-            </h3>
-            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
-              {goat.breed} • {goat.gender === "male" ? "♂" : "♀"}
-            </p>
-          </div>
+        {/* Tag ID */}
+        <div className="absolute bottom-3 left-3 bg-black/60 px-3 py-1 rounded-full">
+          <p className="text-xs text-white font-semibold">#{goat.tagId}</p>
+        </div>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
-              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
-                <Calendar className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-                  Age
-                </p>
-                <p className="text-sm font-bold text-foreground">{age}y</p>
-              </div>
+        {/* Favorite Heart */}
+        <button className="absolute top-3 left-3 w-8 h-8 bg-white/90 rounded-full flex items-center justify-center shadow-md">
+          <Heart className="w-4 h-4 text-red-500" />
+        </button>
+      </div>
+
+      {/* Content Section */}
+      <div className="p-5">
+        {/* Name & Breed */}
+        <div className="mb-5">
+          <h3 className="text-lg font-bold text-foreground mb-1">{goat.name}</h3>
+          <p className="text-sm text-muted-foreground font-medium">
+            {goat.breed} • {goat.gender === "male" ? "♂" : "♀"}
+          </p>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-5">
+          <div className="flex items-center gap-2 p-2 bg-muted/20 rounded-lg">
+            <div className="w-7 h-7 rounded-md bg-card flex items-center justify-center">
+              <Calendar className="w-3.5 h-3.5 text-primary" />
             </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
-              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
-                <Weight className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-                  Weight
-                </p>
-                <p className="text-sm font-bold text-foreground">
-                  {goat.weight}kg
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
-              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
-                <Ruler className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-                  Height
-                </p>
-                <p className="text-sm font-bold text-foreground">
-                  {goat.height}cm
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
-              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
-                <MapPin className="w-4 h-4 text-primary" />
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-                  Location
-                </p>
-                <p className="text-sm font-bold text-foreground">
-                  {goat.location}
-                </p>
-              </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground">Age</p>
+              <p className="text-sm font-semibold text-foreground">{age}y</p>
             </div>
           </div>
-
-          {/* Value & Profit */}
-          <div className="p-4 bg-linear-to-r from-primary/5 to-accent/5 rounded-2xl mb-6 border border-border">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">
-                  Current Value
-                </p>
-                <p className="text-xl font-display font-bold text-foreground">
-                  ₹{goat.currentValue.toLocaleString()}
-                </p>
-              </div>
-              <div className="text-right">
-                <div
-                  className={`flex items-center gap-1 text-sm font-bold ${
-                    Number(profitMargin) >= 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                  }`}
-                >
-                  <TrendingUp className="w-4 h-4" />
-                  {profitMargin}%
-                </div>
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
-                  profit margin
-                </p>
-              </div>
+          <div className="flex items-center gap-2 p-2 bg-muted/20 rounded-lg">
+            <div className="w-7 h-7 rounded-md bg-card flex items-center justify-center">
+              <Weight className="w-3.5 h-3.5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground">Weight</p>
+              <p className="text-sm font-semibold text-foreground">
+                {goat.weight}kg
+              </p>
             </div>
           </div>
-
-          {/* Actions */}
-          <div className="flex gap-3">
-            <Button
-              onClick={() => onView(goat)}
-              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg rounded-2xl"
-            >
-              <Eye className="w-4 h-4 mr-2" />
-              View Details
-            </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              className="border-border hover:bg-muted rounded-2xl w-12 h-12"
-            >
-              <MoreVertical className="w-4 h-4 text-muted-foreground" />
-            </Button>
+          <div className="flex items-center gap-2 p-2 bg-muted/20 rounded-lg">
+            <div className="w-7 h-7 rounded-md bg-card flex items-center justify-center">
+              <Ruler className="w-3.5 h-3.5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground">Height</p>
+              <p className="text-sm font-semibold text-foreground">
+                {goat.height}cm
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 p-2 bg-muted/20 rounded-lg">
+            <div className="w-7 h-7 rounded-md bg-card flex items-center justify-center">
+              <MapPin className="w-3.5 h-3.5 text-primary" />
+            </div>
+            <div>
+              <p className="text-xs font-medium text-muted-foreground">
+                Location
+              </p>
+              <p className="text-sm font-semibold text-foreground">
+                {goat.location}
+              </p>
+            </div>
           </div>
         </div>
-      </Card>
-    </motion.div>
+
+        {/* Value & Profit */}
+        <div className="p-3 bg-gradient-to-r from-primary/5 to-accent/5 rounded-lg mb-5">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-medium text-muted-foreground mb-1">
+                Current Value
+              </p>
+              <p className="text-lg font-bold text-foreground">
+                ₹{goat.currentValue.toLocaleString()}
+              </p>
+            </div>
+            <div className="text-right">
+              <div
+                className={`flex items-center gap-1 text-sm font-semibold ${
+                  Number(profitMargin) >= 0 ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                <TrendingUp className="w-3.5 h-3.5" />
+                {profitMargin}%
+              </div>
+              <p className="text-xs text-muted-foreground">Profit Margin</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-2">
+          <Button
+            onClick={() => onView(goat)}
+            className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg"
+          >
+            <Eye className="w-4 h-4 mr-2" />
+            View Details
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-lg w-10 h-10"
+          >
+            <MoreVertical className="w-4 h-4 text-muted-foreground" />
+          </Button>
+        </div>
+      </div>
+    </Card>
   );
 }
