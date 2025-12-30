@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, Eye, EyeOff, User, Mail, Lock } from "lucide-react";
-import type { UserRole } from "./types";
+import type { UserRole } from "../types";
 
 interface LoginPageProps {
   onLogin: (role: UserRole) => void;
@@ -16,21 +16,17 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-cream font-sans overflow-hidden">
+    <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-2 bg-background font-sans overflow-hidden">
       {/* LEFT — CINEMATIC GOAT VISUAL */}
       <div className="relative hidden lg:block">
-        <img
-          src="/goo.jpg"
-          className="w-full h-full object-cover"
-          alt="Goat"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-forest/90 via-forest/40 to-transparent" />
+        <img src="/goo.jpg" className="w-full h-full object-cover" alt="Goat" />
+        <div className="absolute inset-0 bg-linear-to-r from-primary/90 via-primary/40 to-transparent" />
 
-        <div className="absolute bottom-16 left-16 text-cream max-w-md">
-          <h1 className="text-5xl font-serif font-bold leading-tight">
+        <div className="absolute bottom-16 left-16 text-primary-foreground max-w-md">
+          <h1 className="text-5xl font-display font-bold leading-tight">
             From Farm to Fortune.
           </h1>
-          <p className="mt-4 text-lg text-cream/80">
+          <p className="mt-4 text-lg text-primary-foreground/80">
             Smart Farming. Strong Goats. Serious Money.
           </p>
         </div>
@@ -42,14 +38,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full max-w-md backdrop-blur-xl rounded-[2.5rem] p-10 shadow-2xl border border-white/40 relative overflow-hidden"
+          className="w-full max-w-md backdrop-blur-xl rounded-[2.5rem] p-10 shadow-2xl border border-border bg-card relative overflow-hidden"
         >
-          {/* Overlay for contrast */}
-          <div className="absolute inset-0 bg-black/30" />
-
           {/* CENTERED LOGO */}
           <div className="relative z-10 flex justify-center mb-6">
-            <div className="w-24 h-24 rounded-full bg-cream backdrop-blur-md flex items-center justify-center shadow-xl">
+            <div className="w-24 h-24 rounded-full bg-muted backdrop-blur-md flex items-center justify-center shadow-xl">
               <img
                 src="/glogo.png"
                 alt="logo"
@@ -60,12 +53,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
           {/* BRAND */}
           <div className="text-center mb-6 relative z-10">
-            <h1 className="text-2xl font-serif font-bold text-olive tracking-tight">
+            <h1 className="text-2xl font-display font-bold text-primary tracking-tight">
               KIDAAVIRUNTHU
             </h1>
-            <p className="text-xs text-cream/80 mt-1">
-              GOATS FOREVER
-            </p>
+            <p className="text-xs text-muted-foreground mt-1">GOATS FOREVER</p>
           </div>
 
           {/* FORM CONTENT */}
@@ -78,18 +69,18 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   <input
                     type="text"
                     placeholder="Mobile Number / Trader ID"
-                    className="w-full bg-white/80 border border-white/40 rounded-xl p-3 outline-none focus:border-cream transition placeholder:text-olive/50 text-cream font-medium text-sm"
+                    className="w-full bg-input/20 border border-input rounded-xl p-3 outline-none focus:border-ring transition placeholder:text-muted-foreground text-foreground font-medium text-sm"
                   />
 
                   <div className="relative">
                     <input
                       type={showPass ? "text" : "password"}
                       placeholder="Password"
-                      className="w-full bg-white/80 border border-white/40 rounded-xl p-3 pr-10 outline-none focus:border-cream transition placeholder:text-olive/50 text-cream font-medium text-sm"
+                      className="w-full bg-input/20 border border-input rounded-xl p-3 pr-10 outline-none focus:border-ring transition placeholder:text-muted-foreground text-foreground font-medium text-sm"
                     />
                     <button
                       onClick={() => setShowPass(!showPass)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                     >
                       {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -124,10 +115,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                     <input
                       type="text"
                       placeholder="Full Name"
-                      className="w-full bg-white/80 border border-white/40 rounded-xl p-3 pl-10 outline-none focus:border-cream transition placeholder:text-olive/50 text-cream font-medium text-sm"
+                      className="w-full bg-input/20 border border-input rounded-xl p-3 pl-10 outline-none focus:border-ring transition placeholder:text-muted-foreground text-foreground font-medium text-sm"
                     />
                     <User
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-cream/40"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                       size={18}
                     />
                   </div>
@@ -136,10 +127,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                     <input
                       type="email"
                       placeholder="Email Address"
-                      className="w-full bg-white/80 border border-white/40 rounded-xl p-3 pl-10 outline-none focus:border-cream transition placeholder:text-olive/50 text-cream font-medium text-sm"
+                      className="w-full bg-input/20 border border-input rounded-xl p-3 pl-10 outline-none focus:border-ring transition placeholder:text-muted-foreground text-foreground font-medium text-sm"
                     />
                     <Mail
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-cream/40"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                       size={18}
                     />
                   </div>
@@ -148,10 +139,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                     <input
                       type="text"
                       placeholder="Mobile Number"
-                      className="w-full bg-white/80 border border-white/40 rounded-xl p-3 pl-10 outline-none focus:border-cream transition placeholder:text-olive/50 text-cream font-medium text-sm"
+                      className="w-full bg-input/20 border border-input rounded-xl p-3 pl-10 outline-none focus:border-ring transition placeholder:text-muted-foreground text-foreground font-medium text-sm"
                     />
                     <ChevronRight
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-cream/40"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                       size={18}
                     />
                   </div>
@@ -160,15 +151,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                     <input
                       type={showPass ? "text" : "password"}
                       placeholder="Password"
-                      className="w-full bg-white/80 border border-white/40 rounded-xl p-3 pl-10 pr-10 outline-none focus:border-cream transition placeholder:text-olive/50 text-cream font-medium text-sm"
+                      className="w-full bg-input/20 border border-input rounded-xl p-3 pl-10 pr-10 outline-none focus:border-ring transition placeholder:text-muted-foreground text-foreground font-medium text-sm"
                     />
                     <Lock
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-cream/40"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
                       size={18}
                     />
                     <button
                       onClick={() => setShowPass(!showPass)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-cream/60 hover:text-cream"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
                     >
                       {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>

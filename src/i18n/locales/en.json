@@ -1,0 +1,49 @@
+{
+  "common": {
+    "dashboard": "Dashboard",
+    "goats": "Goats",
+    "marketplace": "Marketplace",
+    "add_new_goat": "Add New Goat",
+    "search": "Search...",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "language": "Language"
+  },
+  "dashboard": {
+    "title": "Farm Overview",
+    "subtitle": "Real-time insights from your goat empire",
+    "total_goats": "Total Goats",
+    "active_listings": "Active Listings",
+    "market_value": "Market Value",
+    "healthy_goats": "Healthy Goats",
+    "monthly_growth": "Monthly Growth",
+    "recent_activity": "Recent Activity",
+    "ai_insights": "AI Insights",
+    "welcome": "Welcome Back, Farmer! 🐐",
+    "subtitle_main": "Here's what's happening with your farm today",
+    "total_profit": "Monthly Profit",
+    "disease_alerts": "Disease Alerts",
+    "growth_analytics": "Farm Growth Analytics",
+    "growth_subtitle": "Goat count & revenue trends over time",
+    "market_prices": "Market Prices",
+    "upcoming_tasks": "Upcoming Tasks",
+    "quick_actions": "Quick Actions"
+  },
+  "goats": {
+    "title": "Goat Herd",
+    "subtitle": "Manage and track your livestock",
+    "add_goat": "Add Goat",
+    "filter": "Filter",
+    "grid_view": "Grid View",
+    "list_view": "List View",
+    "search_placeholder": "Search by name, tag ID, or breed...",
+    "total": "Total",
+    "healthy": "Healthy",
+    "pregnant": "Pregnant",
+    "need_care": "Need Care",
+    "no_goats_found": "No goats found",
+    "adjust_search": "Try adjusting your search or filters"
+  }
+}

@@ -9,10 +9,10 @@ import {
   Eye,
   MoreVertical,
 } from "lucide-react";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
-import type { Goat } from "../../types/index";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import type { Goat } from "@/types/index";
 
 interface GoatCardProps {
   goat: Goat;
@@ -31,7 +31,7 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
       case "sold":
         return "bg-gray-500";
       default:
-        return "bg-olive/40";
+        return "bg-muted text-muted-foreground";
     }
   };
 
@@ -67,9 +67,9 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
       whileHover={{ y: -5, scale: 1.02 }}
       transition={{ duration: 0.3 }}
     >
-      <Card className="overflow-hidden border-olive/10 hover:border-olive/30 transition-all shadow-sm hover:shadow-xl bg-white/50 backdrop-blur-sm rounded-3xl">
+      <Card className="overflow-hidden border-border hover:border-primary/30 transition-all shadow-sm hover:shadow-xl bg-card backdrop-blur-sm rounded-3xl">
         {/* Image Section */}
-        <div className="relative h-52 overflow-hidden bg-linear-to-br from-olive to-forest">
+        <div className="relative h-52 overflow-hidden bg-linear-to-br from-primary to-primary/80">
           {goat.photos && goat.photos.length > 0 ? (
             <img
               src={goat.photos[0]}
@@ -83,7 +83,7 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
                 height="80"
                 viewBox="0 0 80 80"
                 fill="currentColor"
-                className="text-cream/20"
+                className="text-primary-foreground/20"
               >
                 <path d="M15 45 Q 22.5 30, 40 37.5 L 43.75 33.75 L 41.875 37.5 Q 50 33.75, 58.75 37.5 L 63.75 26.25 Q 66.25 37.5, 70 37.5 L 73.75 45 L 70 60 L 63.75 63.75 L 56.25 63.75 L 50 60 L 43.75 63.75 L 36.25 63.75 L 28.75 60 Z" />
               </svg>
@@ -95,15 +95,15 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
             <Badge
               className={`${getStatusColor(
                 goat.status
-              )} text-cream border-none px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg`}
+              )} text-white border-none px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-lg`}
             >
               {getStatusLabel(goat.status)}
             </Badge>
           </div>
 
           {/* Tag ID */}
-          <div className="absolute bottom-4 left-4 bg-forest/80 backdrop-blur-md px-3 py-1 rounded-full shadow-lg border border-white/10">
-            <p className="text-[10px] text-cream font-bold tracking-widest">
+          <div className="absolute bottom-4 left-4 bg-black/40 backdrop-blur-md px-3 py-1 rounded-full shadow-lg border border-white/10">
+            <p className="text-[10px] text-white font-bold tracking-widest">
               #{goat.tagId}
             </p>
           </div>
@@ -112,7 +112,7 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
           <motion.button
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
-            className="absolute top-4 left-4 w-9 h-9 bg-cream/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg border border-white/20"
+            className="absolute top-4 left-4 w-9 h-9 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg border border-white/20"
           >
             <Heart className="w-4 h-4 text-red-500" />
           </motion.button>
@@ -122,70 +122,76 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
         <div className="p-6">
           {/* Name & Breed */}
           <div className="mb-6">
-            <h3 className="text-xl font-serif font-bold text-forest mb-1">
+            <h3 className="text-xl font-display font-bold text-foreground mb-1">
               {goat.name}
             </h3>
-            <p className="text-xs font-bold text-olive/50 uppercase tracking-widest">
+            <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
               {goat.breed} • {goat.gender === "male" ? "♂" : "♀"}
             </p>
           </div>
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="flex items-center gap-3 p-3 bg-cream/50 rounded-2xl border border-olive/5">
-              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                <Calendar className="w-4 h-4 text-olive" />
+            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
+              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
+                <Calendar className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-olive/40 uppercase tracking-tighter">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                   Age
                 </p>
-                <p className="text-sm font-bold text-forest">{age}y</p>
+                <p className="text-sm font-bold text-foreground">{age}y</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-cream/50 rounded-2xl border border-olive/5">
-              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                <Weight className="w-4 h-4 text-olive" />
+            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
+              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
+                <Weight className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-olive/40 uppercase tracking-tighter">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                   Weight
                 </p>
-                <p className="text-sm font-bold text-forest">{goat.weight}kg</p>
+                <p className="text-sm font-bold text-foreground">
+                  {goat.weight}kg
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-cream/50 rounded-2xl border border-olive/5">
-              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                <Ruler className="w-4 h-4 text-olive" />
+            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
+              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
+                <Ruler className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-olive/40 uppercase tracking-tighter">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                   Height
                 </p>
-                <p className="text-sm font-bold text-forest">{goat.height}cm</p>
+                <p className="text-sm font-bold text-foreground">
+                  {goat.height}cm
+                </p>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-cream/50 rounded-2xl border border-olive/5">
-              <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                <MapPin className="w-4 h-4 text-olive" />
+            <div className="flex items-center gap-3 p-3 bg-muted/30 rounded-2xl border border-border">
+              <div className="w-8 h-8 rounded-lg bg-card flex items-center justify-center shadow-sm">
+                <MapPin className="w-4 h-4 text-primary" />
               </div>
               <div>
-                <p className="text-[10px] font-bold text-olive/40 uppercase tracking-tighter">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                   Location
                 </p>
-                <p className="text-sm font-bold text-forest">{goat.location}</p>
+                <p className="text-sm font-bold text-foreground">
+                  {goat.location}
+                </p>
               </div>
             </div>
           </div>
 
           {/* Value & Profit */}
-          <div className="p-4 bg-linear-to-r from-olive/5 to-gold/5 rounded-2xl mb-6 border border-olive/5">
+          <div className="p-4 bg-linear-to-r from-primary/5 to-accent/5 rounded-2xl mb-6 border border-border">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[10px] font-bold text-olive/40 uppercase tracking-widest mb-1">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">
                   Current Value
                 </p>
-                <p className="text-xl font-serif font-bold text-forest">
+                <p className="text-xl font-display font-bold text-foreground">
                   ₹{goat.currentValue.toLocaleString()}
                 </p>
               </div>
@@ -200,7 +206,7 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
                   <TrendingUp className="w-4 h-4" />
                   {profitMargin}%
                 </div>
-                <p className="text-[10px] font-bold text-olive/40 uppercase tracking-tighter">
+                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                   profit margin
                 </p>
               </div>
@@ -211,7 +217,7 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
           <div className="flex gap-3">
             <Button
               onClick={() => onView(goat)}
-              className="flex-1 bg-olive hover:bg-forest text-cream shadow-md hover:shadow-lg rounded-2xl"
+              className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg rounded-2xl"
             >
               <Eye className="w-4 h-4 mr-2" />
               View Details
@@ -219,9 +225,9 @@ export function GoatCard({ goat, onView }: GoatCardProps) {
             <Button
               variant="outline"
               size="icon"
-              className="border-olive/20 hover:bg-cream rounded-2xl w-12 h-12"
+              className="border-border hover:bg-muted rounded-2xl w-12 h-12"
             >
-              <MoreVertical className="w-4 h-4 text-olive" />
+              <MoreVertical className="w-4 h-4 text-muted-foreground" />
             </Button>
           </div>
         </div>

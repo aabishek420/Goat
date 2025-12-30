@@ -2,28 +2,62 @@
 
 @theme {
   /* ================================
-     GOAT EMPIRE — DESIGN TOKENS
+     GOAT EMPIRE — DESIGN SYSTEM
      ================================ */
 
-  /* Brand Colors */
-  --color-olive: #4B5224;
-  --color-cream: #FBF4EA;
-  --color-forest: #3B401B;
-  --color-dust: #A9B07A;
-  --color-gold: #C7A75C;
+  /* 1. PRIMITIVES (The Palette) */
+  --color-olive-500: #4B5224;
+  --color-cream-500: #FBF4EA;
+  --color-forest-500: #3B401B;
+  --color-dust-500: #A9B07A;
+  --color-gold-500: #C7A75C;
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-red-500: #EF4444;
 
-  /* Semantic Colors */
-  --color-primary: var(--color-olive);
-  --color-secondary: var(--color-cream);
-  --color-accent: var(--color-gold);
-  --color-bg: var(--color-cream);
-  --color-text: var(--color-forest);
+  /* 2. SEMANTICS (The Usage) */
+  
+  /* Main Colors */
+  --color-primary: var(--color-olive-500);
+  --color-primary-foreground: var(--color-cream-500);
+  
+  --color-secondary: var(--color-cream-500);
+  --color-secondary-foreground: var(--color-olive-500);
+  
+  --color-accent: var(--color-gold-500);
+  --color-accent-foreground: var(--color-forest-500);
+  
+  --color-destructive: var(--color-red-500);
+  --color-destructive-foreground: var(--color-white);
+
+  /* Backgrounds */
+  --color-background: var(--color-cream-500);
+  --color-foreground: var(--color-forest-500);
+  
+  --color-card: color-mix(in srgb, var(--color-white), transparent 40%);
+  --color-card-foreground: var(--color-forest-500);
+  
+  --color-popover: var(--color-white);
+  --color-popover-foreground: var(--color-forest-500);
+  
+  --color-muted: color-mix(in srgb, var(--color-cream-500), black 5%);
+  --color-muted-foreground: color-mix(in srgb, var(--color-forest-500), transparent 40%);
+
+  /* UI Elements */
+  --color-border: color-mix(in srgb, var(--color-olive-500), transparent 90%);
+  --color-input: color-mix(in srgb, var(--color-olive-500), transparent 90%);
+  --color-ring: var(--color-olive-500);
+  
+  /* Legacy/Brand Mappings (for backward compatibility during refactor) */
+  --color-olive: var(--color-olive-500);
+  --color-cream: var(--color-cream-500);
+  --color-forest: var(--color-forest-500);
+  --color-gold: var(--color-gold-500);
 
   /* Typography */
   --font-display: "Playfair Display", serif;
-  --font-body: "Poppins", sans-serif;
-  --font-ui: "Inter", sans-serif;
-
+  --font-sans: "Inter", sans-serif;
+  
   /* Motion */
   --animate-float: float 6s ease-in-out infinite;
 }

@@ -13,7 +13,9 @@ import {
   BarChart3,
   Heart,
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/ui/LanguageSwitcher";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -38,22 +40,33 @@ export function DashboardLayout({
     alerts: 2,
   },
 }: DashboardLayoutProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [notifications, setNotifications] = useState(3);
   const [showNotifications, setShowNotifications] = useState(false);
 
   const menuItems = [
-    { id: "dashboard", icon: Home, label: "Dashboard", badge: null },
+    { id: "dashboard", icon: Home, label: t("common.dashboard"), badge: null },
     {
       id: "goats",
       icon: GoatIcon,
-      label: "My Goats",
+      label: t("common.goats"),
       badge: userStats.totalGoats,
     },
-    { id: "marketplace", icon: BarChart3, label: "Marketplace", badge: null },
+    {
+      id: "marketplace",
+      icon: BarChart3,
+      label: t("common.marketplace"),
+      badge: null,
+    },
     { id: "reports", icon: TrendingUp, label: "Reports", badge: null },
     { id: "health", icon: Heart, label: "Health", badge: userStats.alerts },
-    { id: "settings", icon: Settings, label: "Settings", badge: null },
+    {
+      id: "settings",
+      icon: Settings,
+      label: t("common.settings"),
+      badge: null,
+    },
   ];
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -83,12 +96,12 @@ export function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-cream/20 via-olive/10 to-forest/5">
+    <div className="min-h-screen bg-linear-to-br from-background via-primary/5 to-foreground/5">
       {/* Top Navigation Bar */}
       <motion.div
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-xl border-b border-olive/20 z-50 shadow-sm"
+        className="fixed top-0 left-0 right-0 h-16 bg-background/90 backdrop-blur-xl border-b border-border z-50 shadow-sm"
       >
         <div className="h-full px-6 flex items-center justify-between">
           {/* Left Section */}
@@ -107,7 +120,7 @@ export function DashboardLayout({
             </Button>
 
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-olive to-forest rounded-xl flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 bg-linear-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
                 <img
                   src="/glogo.png"
                   alt="logo"
@@ -115,10 +128,10 @@ export function DashboardLayout({
                 />
               </div>
               <div className="hidden md:block">
-                <h2 className="text-forest font-serif font-bold text-lg">
+                <h2 className="text-foreground font-display font-bold text-lg">
                   GOAT EMPIRE
                 </h2>
-                <p className="text-[10px] text-olive/70 uppercase tracking-widest">
+                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                   Intelligence Platform
                 </p>
               </div>
@@ -140,6 +153,8 @@ export function DashboardLayout({
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
+            <LanguageSwitcher />
+
             {/* Notifications */}
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <div className="relative">
@@ -149,12 +164,12 @@ export function DashboardLayout({
                   onClick={() => setShowNotifications(!showNotifications)}
                   className="relative"
                 >
-                  <Bell className="w-5 h-5 text-forest" />
+                  <Bell className="w-5 h-5 text-foreground" />
                   {notifications > 0 && (
                     <motion.span
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 w-5 h-5 bg-red-600 text-white rounded-full flex items-center justify-center text-xs border-2 border-white"
+                      className="absolute -top-1 -right-1 w-5 h-5 bg-destructive text-destructive-foreground rounded-full flex items-center justify-center text-xs border-2 border-background"
                     >
                       {notifications}
                     </motion.span>
@@ -164,12 +179,12 @@ export function DashboardLayout({
             </motion.div>
 
             {/* User Profile */}
-            <div className="flex items-center gap-3 pl-4 border-l border-olive/20">
+            <div className="flex items-center gap-3 pl-4 border-l border-border">
               <div className="hidden md:block text-right">
-                <p className="text-sm font-bold text-forest">{userName}</p>
-                <p className="text-xs text-olive/70">{userRole}</p>
+                <p className="text-sm font-bold text-foreground">{userName}</p>
+                <p className="text-xs text-muted-foreground">{userRole}</p>
               </div>
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-olive to-forest flex items-center justify-center text-cream font-bold text-sm shadow-lg">
+              <div className="w-10 h-10 rounded-full bg-linear-to-br from-primary to-primary/80 flex items-center justify-center text-primary-foreground font-bold text-sm shadow-lg">
                 {userName.charAt(0)}
               </div>
             </div>
@@ -183,14 +198,16 @@ export function DashboardLayout({
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="absolute top-16 right-6 w-80 bg-white rounded-2xl shadow-xl border border-olive/20 z-50"
+          className="absolute top-16 right-6 w-80 bg-card rounded-2xl shadow-xl border border-border z-50"
         >
-          <div className="p-4 border-b border-olive/10">
+          <div className="p-4 border-b border-border">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-forest">Notifications</h3>
+              <h3 className="font-semibold text-foreground">
+                {t("common.notifications")}
+              </h3>
               <button
                 onClick={() => setNotifications(0)}
-                className="text-xs text-olive/60 hover:text-olive"
+                className="text-xs text-muted-foreground hover:text-primary"
               >
                 Mark all as read
               </button>
@@ -203,7 +220,7 @@ export function DashboardLayout({
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="p-4 hover:bg-cream/50 border-b border-olive/5 last:border-b-0 cursor-pointer"
+                className="p-4 hover:bg-muted/50 border-b border-border last:border-b-0 cursor-pointer"
               >
                 <div className="flex items-start gap-3">
                   <div
@@ -216,8 +233,10 @@ export function DashboardLayout({
                     }`}
                   />
                   <div className="flex-1">
-                    <p className="text-sm text-forest">{item.message}</p>
-                    <p className="text-xs text-olive/50 mt-1">{item.time}</p>
+                    <p className="text-sm text-foreground">{item.message}</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {item.time}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -230,7 +249,7 @@ export function DashboardLayout({
       <motion.aside
         initial={{ x: -280 }}
         animate={{ x: sidebarOpen ? 0 : -280 }}
-        className="fixed left-0 top-16 bottom-0 w-64 bg-gradient-to-br from-forest to-olive/80 border-r border-white/10 z-40 overflow-y-auto"
+        className="fixed left-0 top-16 bottom-0 w-64 bg-linear-to-br from-primary to-primary/90 border-r border-primary-foreground/10 z-40 overflow-y-auto"
       >
         <div className="p-4 space-y-2">
           {menuItems.map((item, index) => {
@@ -247,8 +266,8 @@ export function DashboardLayout({
                   className={({ isActive }) =>
                     `flex items-center w-full px-4 py-3 gap-3 rounded-xl transition-all ${
                       isActive
-                        ? "bg-olive/90 text-cream shadow-lg"
-                        : "text-cream/80 hover:text-cream hover:bg-white/10"
+                        ? "bg-primary-foreground/20 text-primary-foreground shadow-lg"
+                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                     }`
                   }
                 >
@@ -257,7 +276,7 @@ export function DashboardLayout({
                     {item.label}
                   </span>
                   {item.badge && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-olive/50 text-cream">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-foreground/20 text-primary-foreground">
                       {item.badge}
                     </span>
                   )}
@@ -272,14 +291,14 @@ export function DashboardLayout({
           <div className="space-y-2">
             <Button
               onClick={() => navigate("/goats/add")}
-              className="w-full bg-gold text-forest font-medium hover:bg-gold/90 rounded-xl flex items-center justify-center gap-2"
+              className="w-full bg-accent text-accent-foreground font-medium hover:bg-accent/90 rounded-xl flex items-center justify-center gap-2"
             >
               <Plus className="w-4 h-4" />
-              Add New Goat
+              {t("common.add_new_goat")}
             </Button>
             <Button
               variant="outline"
-              className="w-full text-cream border-cream/30 hover:bg-white/10 rounded-xl"
+              className="w-full text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 rounded-xl"
             >
               Export Report
             </Button>

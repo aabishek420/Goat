@@ -24,7 +24,7 @@ import {
   Grid,
   List,
 } from "lucide-react";
-import { Card } from "../components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   XAxis,
   YAxis,
@@ -36,8 +36,10 @@ import {
   Legend,
 } from "recharts";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function Dashboard() {
+  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState("grid");
   const [selectedBreed, setSelectedBreed] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -47,40 +49,48 @@ export function Dashboard() {
 
   const stats = [
     {
-      title: "Total Goats",
+      title: t("dashboard.total_goats"),
       value: "47",
       change: "+3",
       trend: "up",
       icon: Users,
-      color: "from-olive to-forest",
-      description: "Total livestock on your farm",
+      color: "from-primary to-primary/80",
+      description: t("dashboard.total_goats_desc", {
+        defaultValue: "Total livestock on your farm",
+      }),
     },
     {
-      title: "Monthly Profit",
+      title: t("dashboard.total_profit"),
       value: "₹2.45L",
       change: "+18.2%",
       trend: "up",
       icon: DollarSign,
-      color: "from-gold to-dust",
-      description: "Net revenue this month",
+      color: "from-accent to-accent/80",
+      description: t("dashboard.total_profit_desc", {
+        defaultValue: "Net revenue this month",
+      }),
     },
     {
-      title: "Healthy Goats",
+      title: t("dashboard.healthy_goats"),
       value: "44",
       change: "93.6%",
       trend: "up",
       icon: Heart,
       color: "from-green-600 to-green-700",
-      description: "Goats in good health",
+      description: t("dashboard.healthy_goats_desc", {
+        defaultValue: "Goats in good health",
+      }),
     },
     {
-      title: "Disease Alerts",
+      title: t("dashboard.disease_alerts"),
       value: "2",
       change: "Urgent",
       trend: "down",
       icon: AlertCircle,
       color: "from-red-500 to-red-600",
-      description: "Requires immediate attention",
+      description: t("dashboard.disease_alerts_desc", {
+        defaultValue: "Requires immediate attention",
+      }),
     },
   ];
 
@@ -207,7 +217,6 @@ export function Dashboard() {
     },
   ];
 
-
   const filteredMarketPrices = marketPrices.filter((item) => {
     if (selectedBreed !== "all" && item.breed !== selectedBreed) return false;
     if (
@@ -220,7 +229,6 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen  p-6">
-
       {/* Welcome Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -228,11 +236,11 @@ export function Dashboard() {
         transition={{ delay: 0.1 }}
         className="mb-8"
       >
-        <h2 className="text-3xl font-serif font-bold text-forest mb-2">
-          Welcome Back, Farmer! 🐐
+        <h2 className="text-3xl font-display font-bold text-foreground mb-2">
+          {t("dashboard.welcome")}
         </h2>
-        <p className="text-olive/70 font-medium">
-          Here's what's happening with your farm today
+        <p className="text-muted-foreground font-medium">
+          {t("dashboard.subtitle_main")}
         </p>
       </motion.div>
 
@@ -254,13 +262,13 @@ export function Dashboard() {
               whileHover={{ scale: 1.03 }}
               className="relative"
             >
-              <Card className="relative overflow-hidden border-olive/10 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-xl transition-all cursor-pointer group">
+              <Card className="relative overflow-hidden border-border bg-card backdrop-blur-sm rounded-3xl shadow-lg hover:shadow-xl transition-all cursor-pointer group">
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div
                       className={`w-12 h-12 rounded-2xl bg-linear-to-br ${stat.color} flex items-center justify-center shadow-lg transform transition-transform group-hover:scale-110`}
                     >
-                      <Icon className="w-6 h-6 text-cream" />
+                      <Icon className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div
                       className={`flex items-center gap-1 text-[10px] font-bold px-2 py-1 rounded-full ${
@@ -278,18 +286,18 @@ export function Dashboard() {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs font-bold text-olive/50 uppercase tracking-widest mb-1">
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-1">
                       {stat.title}
                     </p>
-                    <p className="text-3xl font-serif font-bold text-forest">
+                    <p className="text-3xl font-display font-bold text-foreground">
                       {stat.value}
                     </p>
-                    <p className="text-xs text-olive/40 mt-2">
+                    <p className="text-xs text-muted-foreground/80 mt-2">
                       {stat.description}
                     </p>
                   </div>
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-olive/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               </Card>
             </motion.div>
           );
@@ -305,27 +313,27 @@ export function Dashboard() {
       >
         <div className="flex items-center gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-olive/40" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search breeds or activities..."
+              placeholder={t("common.search")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2 rounded-xl bg-white/50 backdrop-blur-sm border border-olive/10 focus:border-olive/30 focus:outline-none text-sm text-forest placeholder-olive/40"
+              className="pl-10 pr-4 py-2 rounded-xl bg-card backdrop-blur-sm border border-border focus:border-ring focus:outline-none text-sm text-foreground placeholder-muted-foreground"
             />
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/50 backdrop-blur-sm border border-olive/10 hover:bg-white/70 transition-colors text-sm font-medium text-olive"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-card backdrop-blur-sm border border-border hover:bg-muted transition-colors text-sm font-medium text-muted-foreground"
             >
               <Filter className="w-4 h-4" />
-              Filters
+              {t("goats.filter")}
             </button>
             <select
               value={selectedTimeRange}
               onChange={(e) => setSelectedTimeRange(e.target.value)}
-              className="px-4 py-2 rounded-xl bg-white/50 backdrop-blur-sm border border-olive/10 focus:border-olive/30 focus:outline-none text-sm text-forest"
+              className="px-4 py-2 rounded-xl bg-card backdrop-blur-sm border border-border focus:border-ring focus:outline-none text-sm text-foreground"
             >
               <option value="1month">Last Month</option>
               <option value="3months">Last 3 Months</option>
@@ -337,17 +345,17 @@ export function Dashboard() {
         <div className="flex items-center gap-2">
           <button
             onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-            className="p-2 rounded-xl bg-white/50 backdrop-blur-sm hover:bg-white/70 transition-colors"
+            className="p-2 rounded-xl bg-card backdrop-blur-sm hover:bg-muted transition-colors"
           >
             {viewMode === "grid" ? (
-              <List className="w-5 h-5 text-olive" />
+              <List className="w-5 h-5 text-muted-foreground" />
             ) : (
-              <Grid className="w-5 h-5 text-olive" />
+              <Grid className="w-5 h-5 text-muted-foreground" />
             )}
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-olive text-cream font-medium hover:bg-forest transition-colors">
+          <button className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
             <Plus className="w-4 h-4" />
-            Add Record
+            {t("common.add_new_goat")}
           </button>
         </div>
       </motion.div>
@@ -366,21 +374,21 @@ export function Dashboard() {
           transition={{ delay: 0.4 }}
           className="lg:col-span-2"
         >
-          <Card className="border-olive/10 p-8 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg">
+          <Card className="border-border p-8 bg-card backdrop-blur-sm rounded-3xl shadow-lg">
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-xl font-serif font-bold text-forest mb-1">
-                  Farm Growth Analytics
+                <h3 className="text-xl font-display font-bold text-foreground mb-1">
+                  {t("dashboard.growth_analytics")}
                 </h3>
-                <p className="text-sm text-olive/60">
-                  Goat count & revenue trends over time
+                <p className="text-sm text-muted-foreground">
+                  {t("dashboard.growth_subtitle")}
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-xl bg-cream flex items-center justify-center">
-                  <BarChart3 className="w-5 h-5 text-olive" />
+                <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
+                  <BarChart3 className="w-5 h-5 text-primary" />
                 </div>
-                <select className="px-3 py-1 rounded-lg bg-white/50 border border-olive/10 text-sm text-forest">
+                <select className="px-3 py-1 rounded-lg bg-card border border-border text-sm text-foreground">
                   <option>Goats & Revenue</option>
                   <option>Revenue Only</option>
                   <option>Goats Only</option>
@@ -487,15 +495,15 @@ export function Dashboard() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5 }}
         >
-          <Card className="border-olive/10 p-6 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg h-full">
+          <Card className="border-border p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg h-full">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-serif font-bold text-forest">
-                Market Prices
+              <h3 className="text-lg font-display font-bold text-foreground">
+                {t("dashboard.market_prices")}
               </h3>
               <select
                 value={selectedBreed}
                 onChange={(e) => setSelectedBreed(e.target.value)}
-                className="px-3 py-1 rounded-lg bg-cream/50 border border-olive/10 text-sm text-forest"
+                className="px-3 py-1 rounded-lg bg-muted/50 border border-border text-sm text-foreground"
               >
                 <option value="all">All Breeds</option>
                 {marketPrices.map((breed) => (
@@ -512,25 +520,25 @@ export function Dashboard() {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6 + index * 0.1 }}
-                  className="flex items-center justify-between p-3 rounded-2xl bg-cream/30 hover:bg-cream/50 transition-colors border border-olive/5 group"
+                  className="flex items-center justify-between p-3 rounded-2xl bg-muted/30 hover:bg-muted/50 transition-colors border border-border group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-olive/20 to-forest/20 flex items-center justify-center">
-                      <span className="text-xs font-bold text-olive">
+                    <div className="w-8 h-8 rounded-lg bg-linear-to-br from-primary/20 to-primary/10 flex items-center justify-center">
+                      <span className="text-xs font-bold text-primary">
                         {item.quality}
                       </span>
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-forest group-hover:text-olive">
+                      <p className="text-sm font-bold text-foreground group-hover:text-primary">
                         {item.breed}
                       </p>
-                      <p className="text-[10px] text-olive/50 uppercase tracking-widest">
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                         per goat
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-bold text-forest">
+                    <p className="text-sm font-bold text-foreground">
                       ₹{item.price.toLocaleString()}
                     </p>
                     <div
@@ -563,12 +571,12 @@ export function Dashboard() {
           transition={{ delay: 0.7 }}
           className="lg:col-span-2"
         >
-          <Card className="border-olive/10 p-6 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg">
+          <Card className="border-border p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-serif font-bold text-forest">
-                Recent Activity
+              <h3 className="text-lg font-display font-bold text-foreground">
+                {t("dashboard.recent_activity")}
               </h3>
-              <button className="text-sm text-olive/60 hover:text-olive flex items-center gap-1">
+              <button className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1">
                 View All <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -579,7 +587,7 @@ export function Dashboard() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8 + index * 0.1 }}
-                  className="flex items-start gap-4 p-4 rounded-2xl hover:bg-cream/30 transition-colors border border-transparent hover:border-olive/5 group"
+                  className="flex items-start gap-4 p-4 rounded-2xl hover:bg-muted/30 transition-colors border border-transparent hover:border-border group"
                 >
                   <div
                     className={`w-3 h-3 rounded-full mt-1.5 shadow-sm ${
@@ -595,11 +603,11 @@ export function Dashboard() {
                     }`}
                   />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-forest group-hover:text-olive">
+                    <p className="text-sm font-medium text-foreground group-hover:text-primary">
                       {activity.message}
                     </p>
                     <div className="flex items-center gap-2 mt-1">
-                      <p className="text-[10px] text-olive/50 uppercase tracking-widest">
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
                         {activity.time}
                       </p>
                       {activity.priority === "high" && (
@@ -609,7 +617,7 @@ export function Dashboard() {
                       )}
                     </div>
                   </div>
-                  <Activity className="w-4 h-4 text-olive/30 group-hover:text-olive" />
+                  <Activity className="w-4 h-4 text-muted-foreground group-hover:text-primary" />
                 </motion.div>
               ))}
             </div>
@@ -622,15 +630,15 @@ export function Dashboard() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
         >
-          <Card className="border-olive/10 p-6 bg-gradient-to-br from-forest to-olive/80 rounded-3xl shadow-xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-olive/20 to-transparent" />
+          <Card className="border-border p-6 bg-linear-to-br from-primary to-primary/80 rounded-3xl shadow-xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-transparent" />
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-xl bg-gold flex items-center justify-center shadow-lg">
-                  <Activity className="w-5 h-5 text-forest" />
+                <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center shadow-lg">
+                  <Activity className="w-5 h-5 text-accent-foreground" />
                 </div>
-                <h3 className="text-lg font-serif font-bold text-cream">
-                  AI Insights & Recommendations
+                <h3 className="text-lg font-display font-bold text-primary-foreground">
+                  {t("dashboard.ai_insights")}
                 </h3>
               </div>
               <div className="space-y-4">
@@ -645,10 +653,10 @@ export function Dashboard() {
                     <div className="flex items-start gap-3">
                       <insight.icon className={`w-4 h-4 ${insight.color}`} />
                       <div className="flex-1">
-                        <p className="text-sm font-bold text-gold mb-1">
+                        <p className="text-sm font-bold text-accent mb-1">
                           {insight.title}
                         </p>
-                        <p className="text-xs text-cream/70 leading-relaxed">
+                        <p className="text-xs text-primary-foreground/80 leading-relaxed">
                           {insight.content}
                         </p>
                       </div>
@@ -656,7 +664,7 @@ export function Dashboard() {
                   </motion.div>
                 ))}
               </div>
-              <button className="w-full mt-6 py-2 rounded-xl bg-gold/20 border border-gold/30 text-gold text-sm font-medium hover:bg-gold/30 transition-colors">
+              <button className="w-full mt-6 py-2 rounded-xl bg-accent/20 border border-accent/30 text-accent text-sm font-medium hover:bg-accent/30 transition-colors">
                 View All Insights
               </button>
             </div>
@@ -671,14 +679,16 @@ export function Dashboard() {
         transition={{ delay: 0.9 }}
         className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
       >
-        <Card className="border-olive/10 p-6 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg">
+        <Card className="border-border p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Calendar className="w-5 h-5 text-olive" />
-            <h4 className="font-semibold text-forest">Upcoming Tasks</h4>
+            <Calendar className="w-5 h-5 text-muted-foreground" />
+            <h4 className="font-semibold text-foreground">
+              {t("dashboard.upcoming_tasks")}
+            </h4>
           </div>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-olive/70">
+              <span className="text-sm text-muted-foreground">
                 Vaccination Schedule
               </span>
               <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
@@ -686,13 +696,15 @@ export function Dashboard() {
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-olive/70">Market Listing</span>
+              <span className="text-sm text-muted-foreground">
+                Market Listing
+              </span>
               <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
                 In 3 days
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-olive/70">
+              <span className="text-sm text-muted-foreground">
                 Feed Inventory Check
               </span>
               <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
@@ -702,58 +714,66 @@ export function Dashboard() {
           </div>
         </Card>
 
-        <Card className="border-olive/10 p-6 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg">
+        <Card className="border-border p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Clock className="w-5 h-5 text-olive" />
-            <h4 className="font-semibold text-forest">Quick Actions</h4>
+            <Clock className="w-5 h-5 text-muted-foreground" />
+            <h4 className="font-semibold text-foreground">
+              {t("dashboard.quick_actions")}
+            </h4>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <button className="p-3 rounded-xl bg-cream/30 hover:bg-cream/50 transition-colors text-center">
-              <Plus className="w-4 h-4 mx-auto mb-1 text-olive" />
-              <span className="text-xs text-olive">Add Goat</span>
+            <button className="p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors text-center">
+              <Plus className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Add Goat</span>
             </button>
-            <button className="p-3 rounded-xl bg-cream/30 hover:bg-cream/50 transition-colors text-center">
-              <Edit className="w-4 h-4 mx-auto mb-1 text-olive" />
-              <span className="text-xs text-olive">Edit Record</span>
+            <button className="p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors text-center">
+              <Edit className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Edit Record</span>
             </button>
-            <button className="p-3 rounded-xl bg-cream/30 hover:bg-cream/50 transition-colors text-center">
-              <Eye className="w-4 h-4 mx-auto mb-1 text-olive" />
-              <span className="text-xs text-olive">View Details</span>
+            <button className="p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors text-center">
+              <Eye className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">
+                View Details
+              </span>
             </button>
-            <button className="p-3 rounded-xl bg-cream/30 hover:bg-cream/50 transition-colors text-center">
-              <Download className="w-4 h-4 mx-auto mb-1 text-olive" />
-              <span className="text-xs text-olive">Export</span>
+            <button className="p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors text-center">
+              <Download className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
+              <span className="text-xs text-muted-foreground">Export</span>
             </button>
           </div>
         </Card>
 
-        <Card className="border-olive/10 p-6 bg-white/60 backdrop-blur-sm rounded-3xl shadow-lg">
+        <Card className="border-border p-6 bg-card backdrop-blur-sm rounded-3xl shadow-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Bell className="w-5 h-5 text-olive" />
-            <h4 className="font-semibold text-forest">Notifications</h4>
+            <Bell className="w-5 h-5 text-muted-foreground" />
+            <h4 className="font-semibold text-foreground">Notifications</h4>
           </div>
           <div className="space-y-3">
             <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-red-500 mt-1.5"></div>
+              <div className="w-2 h-2 rounded-full bg-destructive mt-1.5"></div>
               <div className="flex-1">
-                <p className="text-sm text-forest">
+                <p className="text-sm text-foreground">
                   Health alert: Goat #GT-2841
                 </p>
-                <p className="text-xs text-olive/50">2 hours ago</p>
+                <p className="text-xs text-muted-foreground">2 hours ago</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5"></div>
               <div className="flex-1">
-                <p className="text-sm text-forest">New market price update</p>
-                <p className="text-xs text-olive/50">5 hours ago</p>
+                <p className="text-sm text-foreground">
+                  New market price update
+                </p>
+                <p className="text-xs text-muted-foreground">5 hours ago</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5"></div>
               <div className="flex-1">
-                <p className="text-sm text-forest">Feeding schedule updated</p>
-                <p className="text-xs text-olive/50">1 day ago</p>
+                <p className="text-sm text-foreground">
+                  Feeding schedule updated
+                </p>
+                <p className="text-xs text-muted-foreground">1 day ago</p>
               </div>
             </div>
           </div>

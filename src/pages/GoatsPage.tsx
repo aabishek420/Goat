@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Plus, Filter, Search } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
-import { GoatCard } from "../components/goat/GoatCard";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { GoatCard } from "@/components/goat/GoatCard";
 import type { Goat } from "../types/index";
-import { Card } from "../components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export function GoatsPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState("grid");
@@ -164,19 +166,19 @@ export function GoatsPage() {
         className="flex flex-col md:flex-row md:items-center md:justify-between gap-6"
       >
         <div>
-          <h1 className="text-4xl font-serif font-bold text-forest mb-2">
-            My Goats
+          <h1 className="text-4xl font-display font-bold text-foreground mb-2">
+            {t("goats.title")}
           </h1>
-          <p className="text-olive/70 font-medium">
-            Manage your herd and track performance
+          <p className="text-muted-foreground font-medium">
+            {t("goats.subtitle")}
           </p>
         </div>
         <Button
           onClick={() => navigate("/goats/add")}
-          className="bg-olive hover:bg-forest text-cream shadow-lg hover:shadow-xl transition-all"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all"
         >
           <Plus className="w-4 h-4 mr-2" />
-          Add New Goat
+          {t("common.add_new_goat")}
         </Button>
       </motion.div>
 
@@ -189,22 +191,19 @@ export function GoatsPage() {
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1 relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-olive/40" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder="Search by name, tag ID, or breed..."
+              placeholder={t("goats.search_placeholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-cream/50 border-olive/10 focus:border-olive"
+              className="pl-10 bg-card border-border focus:border-ring"
             />
           </div>
 
           {/* Filter Button */}
-          <Button
-            variant="outline"
-            className="border-olive/20 hover:border-olive/40"
-          >
+          <Button variant="outline" className="border-border hover:border-ring">
             <Filter className="w-4 h-4 mr-2" />
-            Filter
+            {t("goats.filter")}
           </Button>
 
           {/* View Toggle */}
@@ -220,22 +219,22 @@ export function GoatsPage() {
       >
         {[
           {
-            label: "Total",
+            label: t("goats.total"),
             value: goats.length,
             color: "from-olive to-forest",
           },
           {
-            label: "Healthy",
+            label: t("goats.healthy"),
             value: goats.filter((g) => g.status === "healthy").length,
             color: "from-green-600 to-green-700",
           },
           {
-            label: "Pregnant",
+            label: t("goats.pregnant"),
             value: goats.filter((g) => g.status === "pregnant").length,
             color: "from-blue-600 to-blue-700",
           },
           {
-            label: "Need Care",
+            label: t("goats.need_care"),
             value: goats.filter((g) => g.status === "sick").length,
             color: "from-red-600 to-red-700",
           },
@@ -291,14 +290,14 @@ export function GoatsPage() {
           animate={{ opacity: 1 }}
           className="text-center py-20"
         >
-          <div className="w-24 h-24 mx-auto mb-6 bg-cream rounded-full flex items-center justify-center shadow-inner">
-            <Search className="w-10 h-10 text-olive/30" />
+          <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-4">
+            <Search className="w-10 h-10 text-muted-foreground" />
           </div>
-          <h3 className="text-2xl font-serif font-bold text-forest mb-2">
-            No goats found
+          <h3 className="text-2xl font-display font-bold text-foreground mb-2">
+            {t("goats.no_goats_found")}
           </h3>
-          <p className="text-olive/60 font-medium">
-            Try adjusting your search or filters
+          <p className="text-muted-foreground font-medium">
+            {t("goats.adjust_search")}
           </p>
         </motion.div>
       )}
