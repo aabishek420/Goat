@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { Plus, ArrowLeft, Camera, X } from "lucide-react";
 import { Button } from "../components/ui/button";
 import { Card } from "../components/ui/card";
+import { Input, Select, FormSection } from "../components/ui/form";
 
 const AddGoatPage: React.FC = () => {
   const navigate = useNavigate();
@@ -63,7 +64,9 @@ const AddGoatPage: React.FC = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
   ) => {
     const target = e.target as HTMLInputElement | HTMLSelectElement;
     const { name, value, type } = target;
@@ -127,7 +130,10 @@ const AddGoatPage: React.FC = () => {
             Dashboard
           </NavLink>
           <span>/</span>
-          <NavLink to="/goats" className="hover:text-foreground transition-colors">
+          <NavLink
+            to="/goats"
+            className="hover:text-foreground transition-colors"
+          >
             Goats
           </NavLink>
           <span>/</span>
@@ -148,7 +154,9 @@ const AddGoatPage: React.FC = () => {
               <div className="relative">
                 <div
                   className={`w-40 h-40 rounded-full border-2 border-dashed border-border flex items-center justify-center overflow-hidden bg-muted/30 ${
-                    !imagePreview ? "hover:border-primary/50 hover:bg-muted/50" : ""
+                    !imagePreview
+                      ? "hover:border-primary/50 hover:bg-muted/50"
+                      : ""
                   }`}
                 >
                   {imagePreview ? (
@@ -204,398 +212,206 @@ const AddGoatPage: React.FC = () => {
             </div>
 
             {/* Basic Information Section */}
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
-                Basic Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Goat ID */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="goat_id"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Goat ID *
-                  </label>
-                  <input
-                    type="text"
-                    id="goat_id"
-                    name="goat_id"
-                    value={formData.goat_id}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., GT-2847"
-                  />
-                </div>
+            <FormSection title="Basic Information">
+              <Input
+                label="Goat ID *"
+                id="goat_id"
+                name="goat_id"
+                value={formData.goat_id}
+                onChange={handleChange}
+                required
+                placeholder="e.g., GT-2847"
+              />
 
-                {/* Gender */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="gender"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Gender *
-                  </label>
-                  <select
-                    id="gender"
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
-                </div>
+              <Select
+                label="Gender *"
+                id="gender"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </Select>
 
-                {/* Breed */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="breed"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Breed
-                  </label>
-                  <input
-                    type="text"
-                    id="breed"
-                    name="breed"
-                    value={formData.breed}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., Sirohi, Beetal"
-                  />
-                </div>
+              <Input
+                label="Breed"
+                id="breed"
+                name="breed"
+                value={formData.breed}
+                onChange={handleChange}
+                placeholder="e.g., Sirohi, Beetal"
+              />
 
-                {/* Color */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="color"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Color
-                  </label>
-                  <input
-                    type="text"
-                    id="color"
-                    name="color"
-                    value={formData.color}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., Brown & White"
-                  />
-                </div>
+              <Input
+                label="Color"
+                id="color"
+                name="color"
+                value={formData.color}
+                onChange={handleChange}
+                placeholder="e.g., Brown & White"
+              />
 
-                {/* State */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="state"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    State
-                  </label>
-                  <input
-                    type="text"
-                    id="state"
-                    name="state"
-                    value={formData.state}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="Enter state"
-                  />
-                </div>
+              <Input
+                label="State"
+                id="state"
+                name="state"
+                value={formData.state}
+                onChange={handleChange}
+                placeholder="Enter state"
+              />
 
-                {/* Country */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Country
-                  </label>
-                  <input
-                    type="text"
-                    id="country"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="Enter country"
-                  />
-                </div>
-              </div>
-            </div>
+              <Input
+                label="Country"
+                id="country"
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                placeholder="Enter country"
+              />
+            </FormSection>
 
             {/* Parent Information Section */}
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
-                Parent Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Father Goat */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="father_goat_id"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Father Goat
-                  </label>
-                  <select
-                    id="father_goat_id"
-                    name="father_goat_id"
-                    value={formData.father_goat_id || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  >
-                    <option value="">None</option>
-                    {parentGoats.map((goat) => (
-                      <option key={goat.id} value={goat.id}>
-                        {goat.goat_id} - {goat.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+            <FormSection title="Parent Information">
+              <Select
+                label="Father Goat"
+                id="father_goat_id"
+                name="father_goat_id"
+                value={formData.father_goat_id || ""}
+                onChange={handleChange}
+              >
+                <option value="">None</option>
+                {parentGoats.map((goat) => (
+                  <option key={goat.id} value={goat.id}>
+                    {goat.goat_id} - {goat.name}
+                  </option>
+                ))}
+              </Select>
 
-                {/* Mother Goat */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="mother_goat_id"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Mother Goat
-                  </label>
-                  <select
-                    id="mother_goat_id"
-                    name="mother_goat_id"
-                    value={formData.mother_goat_id || ""}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  >
-                    <option value="">None</option>
-                    {parentGoats.map((goat) => (
-                      <option key={goat.id} value={goat.id}>
-                        {goat.goat_id} - {goat.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-            </div>
+              <Select
+                label="Mother Goat"
+                id="mother_goat_id"
+                name="mother_goat_id"
+                value={formData.mother_goat_id || ""}
+                onChange={handleChange}
+              >
+                <option value="">None</option>
+                {parentGoats.map((goat) => (
+                  <option key={goat.id} value={goat.id}>
+                    {goat.goat_id} - {goat.name}
+                  </option>
+                ))}
+              </Select>
+            </FormSection>
 
             {/* Health & Measurements Section */}
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
-                Health & Measurements
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Age */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="age"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Age (months)
-                  </label>
-                  <input
-                    type="number"
-                    id="age"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 24"
-                  />
-                </div>
+            <FormSection title="Health & Measurements">
+              <Input
+                label="Age (months)"
+                type="number"
+                id="age"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                placeholder="e.g., 24"
+              />
 
-                {/* Current Weight */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="current_weight"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Current Weight (KG)
-                  </label>
-                  <input
-                    type="number"
-                    id="current_weight"
-                    name="current_weight"
-                    value={formData.current_weight}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 45"
-                  />
-                </div>
+              <Input
+                label="Current Weight (KG)"
+                type="number"
+                id="current_weight"
+                name="current_weight"
+                value={formData.current_weight}
+                onChange={handleChange}
+                placeholder="e.g., 45"
+              />
 
-                {/* Sourcing Weight */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="sourcing_weight"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Sourcing Weight (KG)
-                  </label>
-                  <input
-                    type="number"
-                    id="sourcing_weight"
-                    name="sourcing_weight"
-                    value={formData.sourcing_weight}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 40"
-                  />
-                </div>
+              <Input
+                label="Sourcing Weight (KG)"
+                type="number"
+                id="sourcing_weight"
+                name="sourcing_weight"
+                value={formData.sourcing_weight}
+                onChange={handleChange}
+                placeholder="e.g., 40"
+              />
 
-                {/* Baby Teeth */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="no_of_baby_teeth"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    No. of Baby Teeth
-                  </label>
-                  <input
-                    type="number"
-                    id="no_of_baby_teeth"
-                    name="no_of_baby_teeth"
-                    value={formData.no_of_baby_teeth}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 8"
-                  />
-                </div>
+              <Input
+                label="No. of Baby Teeth"
+                type="number"
+                id="no_of_baby_teeth"
+                name="no_of_baby_teeth"
+                value={formData.no_of_baby_teeth}
+                onChange={handleChange}
+                placeholder="e.g., 8"
+              />
 
-                {/* Permanent Teeth */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="no_of_permanent_teeth"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    No. of Permanent Teeth
-                  </label>
-                  <input
-                    type="number"
-                    id="no_of_permanent_teeth"
-                    name="no_of_permanent_teeth"
-                    value={formData.no_of_permanent_teeth}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 24"
-                  />
-                </div>
-              </div>
-            </div>
+              <Input
+                label="No. of Permanent Teeth"
+                type="number"
+                id="no_of_permanent_teeth"
+                name="no_of_permanent_teeth"
+                value={formData.no_of_permanent_teeth}
+                onChange={handleChange}
+                placeholder="e.g., 24"
+              />
+            </FormSection>
 
             {/* Financial Information Section */}
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
-                Financial Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Goat Price */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="goat_price"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Goat Price (₹)
-                  </label>
-                  <input
-                    type="number"
-                    id="goat_price"
-                    name="goat_price"
-                    value={formData.goat_price}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 18000"
-                  />
-                </div>
+            <FormSection title="Financial Information">
+              <Input
+                label="Goat Price (₹)"
+                type="number"
+                id="goat_price"
+                name="goat_price"
+                value={formData.goat_price}
+                onChange={handleChange}
+                placeholder="e.g., 18000"
+              />
 
-                {/* Overhead Cost */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="overhead_cost"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Overhead Cost (₹)
-                  </label>
-                  <input
-                    type="number"
-                    id="overhead_cost"
-                    name="overhead_cost"
-                    value={formData.overhead_cost}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 2000"
-                  />
-                </div>
+              <Input
+                label="Overhead Cost (₹)"
+                type="number"
+                id="overhead_cost"
+                name="overhead_cost"
+                value={formData.overhead_cost}
+                onChange={handleChange}
+                placeholder="e.g., 2000"
+              />
 
-                {/* Procurement Cost */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="procurement_cost"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Procurement Cost (₹)
-                  </label>
-                  <input
-                    type="number"
-                    id="procurement_cost"
-                    name="procurement_cost"
-                    value={formData.procurement_cost}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                    placeholder="e.g., 20000"
-                  />
-                </div>
-              </div>
-            </div>
+              <Input
+                label="Procurement Cost (₹)"
+                type="number"
+                id="procurement_cost"
+                name="procurement_cost"
+                value={formData.procurement_cost}
+                onChange={handleChange}
+                placeholder="e.g., 20000"
+              />
+            </FormSection>
 
             {/* Dates Section */}
-            <div>
-              <h3 className="text-lg font-semibold text-foreground mb-4 pb-2 border-b">
-                Important Dates
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Sourcing Date */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="sourcing_date"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Sourcing Date
-                  </label>
-                  <input
-                    type="date"
-                    id="sourcing_date"
-                    name="sourcing_date"
-                    value={formData.sourcing_date}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  />
-                </div>
+            <FormSection title="Important Dates">
+              <Input
+                label="Sourcing Date"
+                type="date"
+                id="sourcing_date"
+                name="sourcing_date"
+                value={formData.sourcing_date}
+                onChange={handleChange}
+              />
 
-                {/* Weighing Date */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="weighing_date"
-                    className="block text-sm font-medium text-foreground"
-                  >
-                    Weighing Date
-                  </label>
-                  <input
-                    type="date"
-                    id="weighing_date"
-                    name="weighing_date"
-                    value={formData.weighing_date}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-muted/30 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  />
-                </div>
-              </div>
-            </div>
+              <Input
+                label="Weighing Date"
+                type="date"
+                id="weighing_date"
+                name="weighing_date"
+                value={formData.weighing_date}
+                onChange={handleChange}
+              />
+            </FormSection>
 
             {/* Checkboxes Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

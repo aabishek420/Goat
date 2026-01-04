@@ -32,10 +32,8 @@ import {
   Legend,
 } from "recharts";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 
 export function Dashboard() {
-  const { t } = useTranslation();
   const [viewMode, setViewMode] = useState("grid");
   const [selectedBreed, setSelectedBreed] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,48 +41,40 @@ export function Dashboard() {
 
   const stats = [
     {
-      title: t("dashboard.total_goats"),
+      title: "Total Goats",
       value: "47",
       change: "+3",
       trend: "up",
       icon: Users,
       color: "from-primary to-primary/80",
-      description: t("dashboard.total_goats_desc", {
-        defaultValue: "Total livestock on your farm",
-      }),
+      description: "Total livestock on your farm",
     },
     {
-      title: t("dashboard.total_profit"),
+      title: "Monthly Profit",
       value: "₹2.45L",
       change: "+18.2%",
       trend: "up",
       icon: DollarSign,
       color: "from-accent to-accent/80",
-      description: t("dashboard.total_profit_desc", {
-        defaultValue: "Net revenue this month",
-      }),
+      description: "Net revenue this month",
     },
     {
-      title: t("dashboard.healthy_goats"),
+      title: "Healthy Goats",
       value: "44",
       change: "93.6%",
       trend: "up",
       icon: Heart,
       color: "from-green-600 to-green-700",
-      description: t("dashboard.healthy_goats_desc", {
-        defaultValue: "Goats in good health",
-      }),
+      description: "Goats in good health",
     },
     {
-      title: t("dashboard.disease_alerts"),
+      title: "Disease Alerts",
       value: "2",
       change: "Urgent",
       trend: "down",
       icon: AlertCircle,
       color: "from-red-500 to-red-600",
-      description: t("dashboard.disease_alerts_desc", {
-        defaultValue: "Requires immediate attention",
-      }),
+      description: "Requires immediate attention",
     },
   ];
 
@@ -218,10 +208,10 @@ export function Dashboard() {
       {/* Welcome Header */}
       <div className="mb-8">
         <h2 className="text-3xl font-bold text-foreground mb-2">
-          {t("dashboard.welcome")}
+          Welcome Back, Farmer! 🐐
         </h2>
         <p className="text-muted-foreground font-medium">
-          {t("dashboard.subtitle_main")}
+          Here's what's happening with your farm today
         </p>
       </div>
 
@@ -272,54 +262,6 @@ export function Dashboard() {
         })}
       </div>
 
-      {/* Controls Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder={t("common.search")}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2 rounded-lg bg-card border border-border focus:border-ring focus:outline-none text-sm text-foreground placeholder-muted-foreground"
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-card border border-border hover:bg-muted transition-colors text-sm font-medium text-muted-foreground">
-              <Filter className="w-4 h-4" />
-              {t("goats.filter")}
-            </button>
-            <select
-              value={selectedTimeRange}
-              onChange={(e) => setSelectedTimeRange(e.target.value)}
-              className="px-4 py-2 rounded-lg bg-card border border-border focus:border-ring focus:outline-none text-sm text-foreground"
-            >
-              <option value="1month">Last Month</option>
-              <option value="3months">Last 3 Months</option>
-              <option value="6months">Last 6 Months</option>
-              <option value="1year">Last Year</option>
-            </select>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
-            className="p-2 rounded-lg bg-card hover:bg-muted transition-colors"
-          >
-            {viewMode === "grid" ? (
-              <List className="w-5 h-5 text-muted-foreground" />
-            ) : (
-              <Grid className="w-5 h-5 text-muted-foreground" />
-            )}
-          </button>
-          <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors">
-            <Plus className="w-4 h-4" />
-            {t("common.add_new_goat")}
-          </button>
-        </div>
-      </div>
-
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
         {/* Growth Chart */}
@@ -328,10 +270,10 @@ export function Dashboard() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
               <div className="mb-4 sm:mb-0">
                 <h3 className="text-lg font-bold text-foreground mb-1">
-                  {t("dashboard.growth_analytics")}
+                  Farm Growth Analytics
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  {t("dashboard.growth_subtitle")}
+                  Goat count & revenue trends over time
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -357,7 +299,11 @@ export function Dashboard() {
                       y2="1"
                     >
                       <stop offset="5%" stopColor="#4B5224" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#4B5224" stopOpacity={0.05} />
+                      <stop
+                        offset="95%"
+                        stopColor="#4B5224"
+                        stopOpacity={0.05}
+                      />
                     </linearGradient>
                     <linearGradient
                       id="revenueGradient"
@@ -367,7 +313,11 @@ export function Dashboard() {
                       y2="1"
                     >
                       <stop offset="5%" stopColor="#C7A75C" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#C7A75C" stopOpacity={0.05} />
+                      <stop
+                        offset="95%"
+                        stopColor="#C7A75C"
+                        stopOpacity={0.05}
+                      />
                     </linearGradient>
                   </defs>
                   <CartesianGrid
@@ -443,7 +393,7 @@ export function Dashboard() {
           <Card className="border-border p-6 bg-card rounded-xl shadow h-full">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
               <h3 className="text-lg font-bold text-foreground">
-                {t("dashboard.market_prices")}
+                Market Prices
               </h3>
               <select
                 value={selectedBreed}
@@ -504,7 +454,7 @@ export function Dashboard() {
           <Card className="border-border p-6 bg-card rounded-xl shadow">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-lg font-bold text-foreground">
-                {t("dashboard.recent_activity")}
+                Recent Activity
               </h3>
               <button className="text-sm text-muted-foreground hover:text-primary flex items-center gap-1">
                 View All <ChevronRight className="w-4 h-4" />
@@ -559,7 +509,7 @@ export function Dashboard() {
                 <Activity className="w-4 h-4 text-accent-foreground" />
               </div>
               <h3 className="text-lg font-bold text-primary-foreground">
-                {t("dashboard.ai_insights")}
+                AI Insights
               </h3>
             </div>
             <div className="space-y-4">
@@ -594,9 +544,7 @@ export function Dashboard() {
         <Card className="border-border p-6 bg-card rounded-xl shadow">
           <div className="flex items-center gap-3 mb-4">
             <Calendar className="w-5 h-5 text-muted-foreground" />
-            <h4 className="font-semibold text-foreground">
-              {t("dashboard.upcoming_tasks")}
-            </h4>
+            <h4 className="font-semibold text-foreground">Upcoming Tasks</h4>
           </div>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -622,69 +570,6 @@ export function Dashboard() {
               <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">
                 In 5 days
               </span>
-            </div>
-          </div>
-        </Card>
-
-        <Card className="border-border p-6 bg-card rounded-xl shadow">
-          <div className="flex items-center gap-3 mb-4">
-            <Clock className="w-5 h-5 text-muted-foreground" />
-            <h4 className="font-semibold text-foreground">
-              {t("dashboard.quick_actions")}
-            </h4>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <button className="p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors text-center">
-              <Plus className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">Add Goat</span>
-            </button>
-            <button className="p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors text-center">
-              <Edit className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">Edit Record</span>
-            </button>
-            <button className="p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors text-center">
-              <Eye className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">View Details</span>
-            </button>
-            <button className="p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors text-center">
-              <Download className="w-4 h-4 mx-auto mb-1 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">Export</span>
-            </button>
-          </div>
-        </Card>
-
-        <Card className="border-border p-6 bg-card rounded-xl shadow">
-          <div className="flex items-center gap-3 mb-4">
-            <Bell className="w-5 h-5 text-muted-foreground" />
-            <h4 className="font-semibold text-foreground">Notifications</h4>
-          </div>
-          <div className="space-y-3">
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-destructive mt-1.5"></div>
-              <div className="flex-1">
-                <p className="text-sm text-foreground">
-                  Health alert: Goat #GT-2841
-                </p>
-                <p className="text-xs text-muted-foreground">2 hours ago</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5"></div>
-              <div className="flex-1">
-                <p className="text-sm text-foreground">
-                  New market price update
-                </p>
-                <p className="text-xs text-muted-foreground">5 hours ago</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5"></div>
-              <div className="flex-1">
-                <p className="text-sm text-foreground">
-                  Feeding schedule updated
-                </p>
-                <p className="text-xs text-muted-foreground">1 day ago</p>
-              </div>
             </div>
           </div>
         </Card>

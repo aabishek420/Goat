@@ -1,5 +1,11 @@
 export function cn(
-  ...inputs: (string | undefined | null | boolean | { [key: string]: any })[]
+  ...inputs: (
+    | string
+    | undefined
+    | null
+    | boolean
+    | { [key: string]: unknown }
+  )[]
 ) {
   return inputs
     .flat()
@@ -7,7 +13,7 @@ export function cn(
     .map((input) => {
       if (typeof input === "object" && input !== null) {
         return Object.entries(input)
-          .filter(([_, value]) => Boolean(value))
+          .filter(([, value]) => Boolean(value))
           .map(([key]) => key)
           .join(" ");
       }

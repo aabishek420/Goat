@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Plus, Filter, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { GoatCard } from "@/components/goat/GoatCard";
+import { GoatCard } from "../components/common/GoatCard";
 import type { Goat } from "../types/index";
 import { Card } from "@/components/ui/card";
 
 export function GoatsPage() {
-  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -160,11 +158,9 @@ export function GoatsPage() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
-          <h1 className="text-3xl font-bold text-foreground mb-2">
-            {t("goats.title")}
-          </h1>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Goat Herd</h1>
           <p className="text-muted-foreground">
-            {t("goats.subtitle")}
+            Manage and track your livestock
           </p>
         </div>
         <Button
@@ -172,7 +168,7 @@ export function GoatsPage() {
           className="bg-primary hover:bg-primary/90 text-primary-foreground shadow hover:shadow-md"
         >
           <Plus className="w-4 h-4 mr-2" />
-          {t("common.add_new_goat")}
+          Add New Goat
         </Button>
       </div>
 
@@ -183,7 +179,7 @@ export function GoatsPage() {
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
-              placeholder={t("goats.search_placeholder")}
+              placeholder="Search by name, tag ID, or breed..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10 bg-card border-border focus:border-primary"
@@ -191,9 +187,12 @@ export function GoatsPage() {
           </div>
 
           {/* Filter Button */}
-          <Button variant="outline" className="border-border hover:border-primary">
+          <Button
+            variant="outline"
+            className="border-border hover:border-primary"
+          >
             <Filter className="w-4 h-4 mr-2" />
-            {t("goats.filter")}
+            Filter
           </Button>
         </div>
       </div>
@@ -202,22 +201,22 @@ export function GoatsPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {[
           {
-            label: t("goats.total"),
+            label: "Total",
             value: goats.length,
             color: "bg-primary",
           },
           {
-            label: t("goats.healthy"),
+            label: "Healthy",
             value: goats.filter((g) => g.status === "healthy").length,
             color: "bg-green-600",
           },
           {
-            label: t("goats.pregnant"),
+            label: "Pregnant",
             value: goats.filter((g) => g.status === "pregnant").length,
             color: "bg-blue-600",
           },
           {
-            label: t("goats.need_care"),
+            label: "Need Care",
             value: goats.filter((g) => g.status === "sick").length,
             color: "bg-red-600",
           },
@@ -227,9 +226,7 @@ export function GoatsPage() {
               <p className="text-sm font-medium text-muted-foreground mb-1">
                 {stat.label}
               </p>
-              <p className="text-2xl font-bold text-foreground">
-                {stat.value}
-              </p>
+              <p className="text-2xl font-bold text-foreground">{stat.value}</p>
               <div className="mt-4 h-1.5 bg-muted rounded-full overflow-hidden">
                 <div className={`h-full ${stat.color} w-full`} />
               </div>
@@ -252,10 +249,10 @@ export function GoatsPage() {
             <Search className="w-8 h-8 text-muted-foreground" />
           </div>
           <h3 className="text-xl font-bold text-foreground mb-2">
-            {t("goats.no_goats_found")}
+            No goats found
           </h3>
           <p className="text-muted-foreground">
-            {t("goats.adjust_search")}
+            Try adjusting your search or filters
           </p>
         </div>
       )}

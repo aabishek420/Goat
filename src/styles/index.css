@@ -2,62 +2,58 @@
 
 @theme {
   /* ================================
-     GOAT EMPIRE — DESIGN SYSTEM
+     TROPIC PAWS — CORAL • TEAL
      ================================ */
 
-  /* 1. PRIMITIVES (The Palette) */
-  --color-olive-500: #4B5224;
-  --color-cream-500: #FBF4EA;
-  --color-forest-500: #3B401B;
-  --color-dust-500: #A9B07A;
-  --color-gold-500: #C7A75C;
+  /* 1. PRIMITIVES */
+  --color-teal-950: #052524;
+  --color-teal-900: #064E4A;
+  --color-teal-700: #0F766E;
+  --color-teal-500: #14B8A6;
+  --color-teal-300: #5EEAD4;
+
+  --color-coral-700: #E0514F;
+  --color-coral-500: #FB6A5A;
+  --color-coral-300: #FEB2A8;
+
+  --color-offwhite: #FDF9F6;
   --color-white: #FFFFFF;
   --color-black: #000000;
   --color-red-500: #EF4444;
 
-  /* 2. SEMANTICS (The Usage) */
-  
-  /* Main Colors */
-  --color-primary: var(--color-olive-500);
-  --color-primary-foreground: var(--color-cream-500);
-  
-  --color-secondary: var(--color-cream-500);
-  --color-secondary-foreground: var(--color-olive-500);
-  
-  --color-accent: var(--color-gold-500);
-  --color-accent-foreground: var(--color-forest-500);
-  
+  /* 2. SEMANTIC TOKENS */
+  --color-primary: var(--color-teal-700);
+  --color-primary-foreground: var(--color-offwhite);
+
+  --color-secondary: var(--color-coral-500);
+  --color-secondary-foreground: var(--color-offwhite);
+
+  --color-accent: var(--color-teal-300);
+  --color-accent-foreground: var(--color-teal-950);
+
   --color-destructive: var(--color-red-500);
   --color-destructive-foreground: var(--color-white);
 
-  /* Backgrounds */
-  --color-background: var(--color-cream-500);
-  --color-foreground: var(--color-forest-500);
-  
-  --color-card: color-mix(in srgb, var(--color-white), transparent 40%);
-  --color-card-foreground: var(--color-forest-500);
-  
+  --color-background: var(--color-offwhite);
+  --color-foreground: var(--color-teal-950);
+
+  --color-card: var(--color-white);
+  --color-card-foreground: var(--color-teal-950);
+
   --color-popover: var(--color-white);
-  --color-popover-foreground: var(--color-forest-500);
-  
-  --color-muted: color-mix(in srgb, var(--color-cream-500), black 5%);
-  --color-muted-foreground: color-mix(in srgb, var(--color-forest-500), transparent 40%);
+  --color-popover-foreground: var(--color-teal-950);
 
-  /* UI Elements */
-  --color-border: color-mix(in srgb, var(--color-olive-500), transparent 90%);
-  --color-input: color-mix(in srgb, var(--color-olive-500), transparent 90%);
-  --color-ring: var(--color-olive-500);
-  
-  /* Legacy/Brand Mappings (for backward compatibility during refactor) */
-  --color-olive: var(--color-olive-500);
-  --color-cream: var(--color-cream-500);
-  --color-forest: var(--color-forest-500);
-  --color-gold: var(--color-gold-500);
+  --color-muted: #E8F3F1;
+  --color-muted-foreground: #4C6F6B;
 
-  /* Typography */
-  --font-display: "Playfair Display", serif;
-  --font-sans: "Inter", sans-serif;
-  
-  /* Motion */
+  --color-border: #D7E5E2;
+  --color-input: #D7E5E2;
+  --color-ring: var(--color-teal-700);
+
+  /* 3. TYPOGRAPHY */
+  --font-display: "Poppins", sans-serif;
+  --font-sans: "Poppins", sans-serif;
+
+  /* 4. MOTION */
   --animate-float: float 6s ease-in-out infinite;
 }

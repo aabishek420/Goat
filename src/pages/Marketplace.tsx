@@ -164,7 +164,7 @@ export function Marketplace() {
       </div>
 
       {/* Featured Listings */}
-      {selectedCategory === "all" && (
+      {/* {selectedCategory === "all" && (
         <div>
           <div className="flex items-center gap-2 mb-4">
             <TrendingUp className="w-5 h-5 text-primary" />
@@ -177,7 +177,7 @@ export function Marketplace() {
                 <div key={listing.id}>
                   <Card className="overflow-hidden border-border hover:border-primary/30 transition-all shadow hover:shadow-md">
                     <div className="flex flex-col md:flex-row">
-                      {/* Image */}
+                      
                       <div className="relative w-full md:w-48 h-48 bg-muted">
                         <img
                           src={listing.image}
@@ -192,7 +192,7 @@ export function Marketplace() {
                         </button>
                       </div>
 
-                      {/* Content */}
+                      
                       <div className="flex-1 p-4">
                         <h3 className="text-lg font-semibold text-foreground mb-2">
                           {listing.goatName}
@@ -242,7 +242,7 @@ export function Marketplace() {
               ))}
           </div>
         </div>
-      )}
+      )} */}
 
       {/* All Listings Grid */}
       <div>
