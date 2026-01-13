@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { BiLogOut, BiUser } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
 import { getUserRole } from "../../utils/auth";
 import Notification from "./Notification";
+import { useAuthStore } from "../../store/useAuthStore";
 
 interface HeaderProps {
   className?: string;
@@ -13,8 +13,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ className }) => {
   const [showNotificationModal, setShowNotificationModal] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const { user, logout } = useAuthStore();
   const userRole = getUserRole();
-  const navigate = useNavigate();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
@@ -42,10 +42,10 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
   };
 
   const handleLogout = () => {
-    navigate("/login");
+    logout();
   };
 
-  const userName = "User"; // Placeholder or from auth context if available
+  const userName = user?.full_name || "User";
 
   return (
     <header

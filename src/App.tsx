@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Layout from "./components/common/Layout";
 import { Dashboard } from "./pages/Dashboard";
@@ -12,22 +11,19 @@ import SitesList from "./pages/SitesList";
 import AddSitesPage from "./pages/AddSites";
 import WarehouseList from "./pages/WarehouseList";
 import AddDataWarehouse from "./pages/AddDataWarehouse";
+import { useAuthStore } from "./store/useAuthStore";
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem("isLoggedIn") === "true";
-  });
   const location = useLocation();
+  const { user } = useAuthStore();
 
-  const handleLogin = () => {
-    localStorage.setItem("isLoggedIn", "true");
-    setIsLoggedIn(true);
-  };
+  // Check if user is authenticated
+  const isAuthenticated = !!user || !!localStorage.getItem("access-token");
 
-  if (!isLoggedIn) {
+  if (!isAuthenticated) {
     return (
       <Routes location={location}>
-        <Route path="/login" element={<LoginPage onLogin={handleLogin} />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     );

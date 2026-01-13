@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  goat-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: goat-app
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    networks:
+      - goat-network
+
+  # Development service (optional)
+  goat-dev:
+    image: node:20-alpine
+    container_name: goat-dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      - NODE_ENV=development
+    networks:
+      - goat-network
+    profiles:
+      - dev
+
+networks:
+  goat-network:
+    driver: bridge
