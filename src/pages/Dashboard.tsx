@@ -7,17 +7,7 @@ import {
   Activity,
   DollarSign,
   BarChart3,
-  Filter,
-  Download,
-  Search,
-  Plus,
-  Grid,
-  List,
   Calendar,
-  Clock,
-  Bell,
-  Edit,
-  Eye,
   ChevronRight,
 } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -34,10 +24,7 @@ import {
 import { useState } from "react";
 
 export function Dashboard() {
-  const [viewMode, setViewMode] = useState("grid");
   const [selectedBreed, setSelectedBreed] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTimeRange, setSelectedTimeRange] = useState("6months");
 
   const stats = [
     {
@@ -195,11 +182,6 @@ export function Dashboard() {
 
   const filteredMarketPrices = marketPrices.filter((item) => {
     if (selectedBreed !== "all" && item.breed !== selectedBreed) return false;
-    if (
-      searchQuery &&
-      !item.breed.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-      return false;
     return true;
   });
 
@@ -217,7 +199,7 @@ export function Dashboard() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {stats.map((stat, index) => {
+        {stats.map((stat) => {
           const Icon = stat.icon;
           return (
             <div key={stat.title} className="group">

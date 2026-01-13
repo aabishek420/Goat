@@ -1,17 +1,8 @@
 import React, { useState } from "react";
-import {
-  Menu,
-  X,
-  Home,
-  Users as GoatIcon,
-  BarChart3,
-  Plus,
-  Users,
-  Warehouse,
-} from "lucide-react";
+import { Menu, X, Home, Users, Warehouse } from "lucide-react";
 import { GiGoat } from "react-icons/gi";
 import { MdOutlineLocationCity } from "react-icons/md";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface NavigationItem {
   name: string;
@@ -27,7 +18,6 @@ interface SidebarProps {
 
 export function Sidebar({ className }: SidebarProps) {
   const location = useLocation();
-  const navigate = useNavigate();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -91,7 +81,7 @@ export function Sidebar({ className }: SidebarProps) {
     },
   ];
 
-  const navigation = allNavigation; // Simplified for now, can add role filtering back if needed
+  const navigation = allNavigation; // simplified for now, can add role filtering back if needed
 
   return (
     <>

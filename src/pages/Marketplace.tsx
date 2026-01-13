@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShoppingBag, MapPin, Phone, TrendingUp, Heart } from "lucide-react";
+import { ShoppingBag, MapPin, Phone, Heart } from "lucide-react";
 import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
@@ -124,7 +124,9 @@ export function Marketplace() {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">Marketplace</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-2">
+            Marketplace
+          </h1>
           <p className="text-muted-foreground">Buy and sell premium goats</p>
         </div>
         <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
@@ -249,7 +251,10 @@ export function Marketplace() {
         <h2 className="text-lg font-semibold text-foreground mb-4">
           {selectedCategory === "all"
             ? "All Listings"
-            : `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)} Listings`}
+            : `${
+                selectedCategory.charAt(0).toUpperCase() +
+                selectedCategory.slice(1)
+              } Listings`}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredListings.map((listing) => (
@@ -274,8 +279,12 @@ export function Marketplace() {
 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="font-semibold text-foreground mb-1">{listing.goatName}</h3>
-                  <p className="text-sm text-muted-foreground mb-3">{listing.breed}</p>
+                  <h3 className="font-semibold text-foreground mb-1">
+                    {listing.goatName}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {listing.breed}
+                  </p>
 
                   <div className="space-y-1 mb-3 text-sm">
                     <div className="flex justify-between">
@@ -300,7 +309,9 @@ export function Marketplace() {
                           ₹{listing.price.toLocaleString()}
                         </p>
                         {listing.negotiable && (
-                          <p className="text-xs text-muted-foreground">Negotiable</p>
+                          <p className="text-xs text-muted-foreground">
+                            Negotiable
+                          </p>
                         )}
                       </div>
                     </div>
